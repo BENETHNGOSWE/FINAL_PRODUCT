@@ -1,0 +1,72 @@
+{% extends 'FYPAPP/home.html' %}
+
+{% block content %}
+<div class="container card p-3 boarder-dark" style="width: 95%;">
+    <h5 class="text-center">ADD QUESTION </h5>
+    <hr>
+    <form method="POST" action="#">
+        {% csrf_token %}
+        <!-- {{ form }} -->
+                <!-- Gutter g-1 -->
+<div class="row g-1">
+    <div class="col">
+      <!-- Name input -->
+      <div class="form-outline">
+        <!-- <input type="text" id="form9Example1" name="somo" class="form-control" /> -->
+        <label class="form-label" for="form9Example1">Somo</label>
+        {{ form.somo }}
+      </div>
+    </div>
+    <div class="col">
+    
+      <div class="form-outline">
+        <!-- <input type="text" id="form9Example3" name="topic" class="form-control" /> -->
+        <label class="form-label" for="form9Example3">Topic</label>
+        {{ form.topic }}
+      </div>
+    </div>
+  </div>
+  
+  <hr />
+  
+  <!-- Gutter g-5 -->
+  <div class="row g-5">
+    <div class="col">
+      <!-- Name input -->
+      <div class="form-outline">
+        <!-- <input type="text" id="form9Example3" name="questiontype" class="form-control" /> -->
+        <label class="form-label" for="form9Example3">Question Type</label>
+        {{ form.questionType }}
+        
+      </div>
+    </div>
+    <div class="col">
+      <!-- Email input -->
+      <div class="form-outline">
+        <!-- <input type="text" id="form9Example3" name="questionLevel" class="form-control" /> -->
+        <label class="form-label" for="form9Example3">Question Level</label>
+        {{ form.questionLevel }}
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row g-5">
+    <div class="col">
+        <!-- Email input -->
+        <div class="form-outline">
+          <!-- <input type="text" id="form9Example3" name="questiontext" class="form-control" /> -->
+          <label class="form-label" for="form9Example3">Question Text</label>
+          {{ form.questionText}}
+        </div>
+      </div>
+  </div>
+        
+        <div class="mt-5">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-secondary ms-2">Reset</button>
+            <a href="{% url 'FYPAPP:benny' %}" class="btn btn-outline-dark ms-2">List All</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
