@@ -1,17 +1,21 @@
 from django import forms
-from .models import Masomo, Question
+from .models import Masomo, Question, Course
 
 
 class MasomoForm(forms.ModelForm):
     class Meta:
         model = Masomo
         fields = '__all__'
+
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = '__all__'
 
-
+class CourseForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = '__all__'
 
 # class QuestionForm(forms.ModelForm):
 #     class Meta:

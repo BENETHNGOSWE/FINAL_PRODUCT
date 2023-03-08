@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from .models import Course, Masomo, Question
-from .forms import QuestionForm
+from .forms import QuestionForm, CourseForm, MasomoForm
 
 
 # Create your views here.
@@ -14,149 +14,89 @@ from .forms import QuestionForm
 # def dashboard(request):
 #     return render(request, 'FYPAPP/dashboard.html')
 
-# def add_question(request):
-#     # return render(request, 'FYPAPP/add_question.html')
-#     ainayaswali= Question.objects.all()
-      
-#     if request.method == 'POST':
-#         somo = request.POST.get('somo')
-#         topic = request.POST.get('topic')
-#         questiontype = request.POST.get('questiontype')
-#         questionLevel = request.POST.get('questionLevel')
-#         questionText = request.POST.get('questionText')
 
-#         new_question = Question(
-#             somo=somo,
-#             topic=topic,
-#             questiontype=questiontype,
-#             questionLevel=questionLevel,
-#             questionText=questionText
-#         )
-#         new_question.save()
-#     return render(request, 'FYPAPP/add_question.html', {"questiontype":ainayaswali})
-
-# def question(request):
-#     ainayaswali = QuestionType.objects.all()
-#     return render(request, 'FYPAPP/add_question.html', {"questiontype":ainayaswali})
-
-
-# def question_level(request):
-#     datamaswalilevel = QuestionLevel.objects.all()
-#     return render(request, 'FYPAPP/add_question.html', {"questionlevel":datamaswalilevel})
-
+def course_manage(request):
+    context = {'course':  Course.objects.all()}
+    return render(request, 'FYPAPP/course_manage.html', context)
 
 
 def add_course(request):
-    data = Course.objects.all()
-    # print(data)
-    if request.method == 'POST':
-        coursename = request.POST['coursename']
-        coursecode = request.POST['coursecode']
-        
+    if request.method == "POST":
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('/coursedata')   
 
-        new_course = Course(courseName=coursename, courseCode=coursecode)
-        new_course.save()
-    return render(request, 'FYPAPP/add_course.html', {"course":data})
-    
+    else:
+        form = CourseForm()
+        return render(request, 'FYPAPP/add_course.html', {"form":form})     
+def update_course(request, pk):
+    course = Course.objects.get(id=pk)
+    form = CourseForm(instance=course)
+
+    if request.method == "POST":
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect('/coursedata')
+
+    context = {"form":form}
+    return render(request, 'FYPAPP/add_course.html', context)
+
+# *******************************************************************
+
+def module_manage(request):
+    context = {'masomo': Masomo.objects.all()}
+    return render(request, 'FYPAPP/module_manage.html', context)
 
 
 def add_module(request):
-    # if request.method == 'POST':
-    #     form = MasomoForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         # return render(request, 'FYPAPP/add_module.html', {'form':form})
+    if request.method == "POST":
+        form = MasomoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/moduledata')
 
-    #     else:
-    #         form = MasomoForm()
-    #         return render(request, 'FYPAPP/add_module.html', {'form':form})    
-    datamasomo = Masomo.objects.all()
-    if request.method == 'POST':
-        modulename = request.POST.get('modulename')
-        modulecode = request.POST.get('modulecode')
-        course = request.POST.get('course')
+    else:
+        form = MasomoForm()
+        return render(request, 'FYPAPP/add_module.html', {"form":form})        
 
-        new_module = Masomo(moduleName=modulename, moduleCode=modulecode, course=course)
-        new_module.save()
-    return render(request, 'FYPAPP/add_module.html', {"masomo":datamasomo})
+def update_module(request, pk):
+    masomo = Masomo.objects.get(id=pk)
+    form = MasomoForm(instance=masomo)
 
-# def add_question(request):
-#     datamaswali = Question.objects.all()
-#     if request.method == 'POST':
-#         somo = request.POST.get('somo')
-#         topic = request.POST.get('topic')
-#         questiontype = request.POST.get('questiontype')
-#         questionLevel = request.POST.get('questionLevel')  
-#         questionText = request.POST.get('questionText')
+    if request.method == "POST":
+        form = MasomoForm(request.POST, instance=masomo)
+        if form.is_valid():
+            form.save()
+            return redirect('/moduledata')
 
-#         new_question = Question(
-#             somo=somo,
-#             topic=topic,
-#             quesiontype=questiontype,
-#             questionLevel=questionLevel,
-#             questionText=questionText
-#         )
-#         new_question.save()
-#     return render(request, 'FYPAPP/add_question.html', {"maswali":datamaswali})
-        
+    context = {"form":form}
+    return render(request, 'FYPAPP/add_module.html', context)        
+
+def update_course(request, pk):
+    course = Course.objects.get(id=pk)
+    form = CourseForm(instance=course)
+
+    if request.method == "POST":
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect('/coursedata')
+
+    context = {"form":form}
+    return render(request, 'FYPAPP/add_course.html', context)
+# ****************************************************************************
 
 
 
-class home(TemplateView):
-    template_name = 'FYPAPP/home.html'
-
-
-class dashboard(TemplateView):
-    template_name = 'FYPAPP/dashboard.html'
-
-# class add_question(TemplateView):
-#     template_name = 'FYPAPP/add_question.html'
-    
-
-    
-
-# def add_question(request):
-#     # datacourse = Question.objects.all()
-#     context = {'add_question':Question.objects.all()}
-#     return render(request, 'FYPAPP/add_question.html', context)      
-
-# def data_read(request):
-#     context = {'add_question': Question.objects.all()}
-#     return render(request, "FYPAPP/add_question.html", context)
-
-
-
-# def manage_question(request):
-#     if request.method == "POST":
-#         form = QuestionForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#         return redirect('/managequestion')  
-
-#     else:
-#             form = QuestionForm()
-#             return render(request, "FYPAPP/manage_question.html", {"form":form})  
-# # def question(request):
-#     if request.method == "POST":
-#         form = QuestionForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#         return redirect('/data') 
-
-#     else:
-#         form = QuestionForm()
-#         return render(request, 'FYPAPP/add_question.html', {'form':form})           
 
 
 def question_manage(request):
     context = {'question_manage': Question.objects.all()}
     return render(request, "FYPAPP/question_manage.html", context)
-# def question_manage(request):
-#     context = {'data_read': Question.objects.all()}
-#     return render(request, "FYPAPP/data_read.html", context)
 
-
-def add_maswali(request):
+def add_question(request):
     if request.method == "POST":
         form = QuestionForm(request.POST)
         if form.is_valid():
@@ -166,42 +106,44 @@ def add_maswali(request):
 
     else:
             form = QuestionForm()
-            return render(request, "FYPAPP/add_question.html", {"form":form})  
-
-# def question_manage(request):
-#     context = {'data_read': Question.objects.all()}
-#     return render(request, "FYPAPP/data_read.html", context)
+            return render(request, "FYPAPP/add_question.html", {"form":form})         
 
 
+def update_question(request, pk):
+    question = Question.objects.get(id=pk)
+    form = QuestionForm(instance=question)
 
-# def add_question(request):
-#     if request.method == "POST":
-#         form = QuestionForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#         return redirect('/data')  
-
-#     else:
-#             form = QuestionForm()
-#             return render(request, "FYPAPP/data_form.html", {"form":form})  
-
-
-
-
-
-def data_read(request):
-    context = {'data_read': Question.objects.all()}
-    return render(request, "data_read.html", context)
-
-
-
-def data_form(request):
     if request.method == "POST":
-        form = QuestionForm(request.POST)
+        form = QuestionForm(request.POST, instance=question)
         if form.is_valid():
             form.save()
-        return redirect('/data')  
+            return redirect("/data")
 
-    else:
-            form = QuestionForm()
-            return render(request, "data_form.html", {"form":form})  
+    context = {"form": form }
+    return render(request, 'FYPAPP/add_question.html', context)
+        
+def delete_question(request, pk):
+    question = Question.objects.get(id=pk)
+    if request.method == "POST":
+        question.delete()
+    return redirect("/data")
+
+
+    context = {"question":question}
+    return render(request, 'FYPAPP/question_manage.html', context)
+
+
+
+class home(TemplateView):
+    template_name = 'FYPAPP/home.html'
+
+
+class dashboard(TemplateView):
+    template_name = 'FYPAPP/dashboard.html'
+  
+
+
+
+
+
+

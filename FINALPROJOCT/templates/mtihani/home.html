@@ -253,8 +253,8 @@
                           COURSE
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="{% url 'FYPAPP:add_course' %}">ADD COURSE</a></li>
-                          <li><a class="dropdown-item" href="{% url 'FYPAPP:course_manage' %}">MANAGE COURSE</a></li>
+                          <li><a class="dropdown-item" href="#">ADD COURSE</a></li>
+                          <li><a class="dropdown-item" href="#">MANAGE COURSE</a></li>
                           
                         </ul>
                     </div>
@@ -265,9 +265,9 @@
                           MODULE
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="{% url 'FYPAPP:add_module' %}">ADD MODULE</a></li>
+                          <li><a class="dropdown-item" href="#">ADD MODULE</a></li>
                           <li><a class="dropdown-item" href="#">ADD MODULE TOPICS</a></li>
-                          <li><a class="dropdown-item" href="{% url 'FYPAPP:module_manage' %}">MANAGE MODULE</a></li>
+                          <li><a class="dropdown-item" href="#">MANAGE MODULE</a></li>
                         </ul>
                     </div>
                     <br/>
@@ -277,21 +277,15 @@
                           QUESTION
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="{% url 'FYPAPP:add_question' %}">ADD QUESTION</a></li>
-                          <li><a class="dropdown-item" href="{% url 'FYPAPP:question_manage' %}">MANAGE QUESTION</a></li>
+                          <li><a class="dropdown-item" href="/addquestion">ADD QUESTION</a></li>
+                          <li><a class="dropdown-item" href="#">MANAGE QUESTION</a></li>
                         </ul>
                     </div>
                     <br/>
 
-                    <div class="dropdown">
+                    <div>
                         <!-- <i class="fas fa-users"></i> -->
-                        <button class="btn btn-white" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" >QUESTION PAPER </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                            <li><a class="dropdown-item" href="{% url 'mtihani:add_exam' %}">ADD EXAM</a></li>
-                            <li><a class="dropdown-item" href="{% url 'mtihani:exam_manage' %}"> MANAGE EXAM </a></li>
-                        </ul>
-                        <!-- <a href="{% url 'FYPAPP:question_manage' %}" class="btn btn-outline-dark ms-2">List All</a> -->
-
+                        <button type="button" class="btn btn-white">QUESTION PAPER </button>
                     </div>
                     <br/>
 

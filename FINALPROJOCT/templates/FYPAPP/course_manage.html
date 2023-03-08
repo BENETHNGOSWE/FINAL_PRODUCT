@@ -275,7 +275,7 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Question</b></h2>
+						<h2>Manage <b>Course</b></h2>
 					</div>
 					<div class="col-sm-6">
 						<!-- <a href="{% url 'FYPAPP:add_question' %}" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Module</span></a> -->
@@ -283,44 +283,47 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
-                
-                    <thead>
-                        <tr>
-                            <th>somo</th>
-                            <th>Topic</th>
-                            <!-- <th>questionTypee</th> -->
-                            <th>questionLevel</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    {% for question in question_manage %}
-                    <tr>
-                        <td>{{question.somo}}</td>
-                        <td>{{question.topic}}</td>
-                        <!-- <td>{{data.questionType}}</td> -->
-                        <td>{{question.questionLevel}}</td>
-                        <td>
-							<div class="container-fluid">
-								<div class="row">
-									<div class="col-6">
-										<a href="{% url 'FYPAPP:update_question' question.id %}" class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</a>
+				<thead>
+					<tr>
+							
+						<th>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="selectAll">
+								<label for="selectAll"></label>
+							</span>
+						</th>
+						<th>Course Name</th>
+						<th>Course Code</th>
+						<!-- <th>Actions</th> -->
+						<th>Actions</th>
+					</tr>
+				</thead>
+				{% for c in course %}
+				<tr>
+					<td>
+						<span class="custom-checkbox">
+							<input type="checkbox" id="{{c.courseName}}">
+							<label for="selectAll"></label>
+						</span>
+					</td>
+					<td>{{c.courseName}}</td>
+					<td>{{c.courseCode}}</td>
+					<td>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-6">
+                                    <a href="{% url 'FYPAPP:update_course' c.id %}" class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</a>
+								</div>
 
-										<!-- <a href="{% url 'FYPAPP:add_question' %}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
-										<!-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->
-									</div>
-	
-									<div class="col-6">
-										<a href="{% url 'FYPAPP:update_question' question.id %}" class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</a>
-
-										<!-- <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
-										<!-- <a href="{% url 'FYPAPP:delete_question' question.id %}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->
-									</div>
+								<div class="col-6">
+									<!-- <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
+									<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 								</div>
 							</div>
-						</td>
-                    </tr>
-                    {% endfor %}
-                
+						</div>
+					</td>
+				</tr>
+				{% endfor %}
 			</table>
 		
 		</div>
