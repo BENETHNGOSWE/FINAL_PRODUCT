@@ -31,7 +31,7 @@ class Masomo(models.Model):
     moduleName = models.CharField(max_length=30)
     moduleCode = models.CharField(max_length=30)
     course = models.ForeignKey('Course', on_delete=models.CASCADE, null=True)
-    moduleTeacher = models.CharField(max_length=30)
+    
 
     def __str__(self):
         return self.moduleName

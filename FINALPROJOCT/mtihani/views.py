@@ -32,4 +32,18 @@ def add_exam(request):
 
     else:
             form = ExamForm()
-            return render(request, "mtihani/add_exam.html", {"form":form})         
+            return render(request, "mtihani/add_exam.html", {"form":form})     
+
+
+def update_exam(request, pk):
+    mtihani = Exam.objects.get(id=pk)
+    form = ExamForm(instance=mtihani)
+
+    if request.method == "POST":
+        form = ExamForm(request.POST, instance=mtihani)  
+        if form.is_valid():
+            form.save()  
+            return redirect('/exam')  
+
+    context = {"form":form}
+    return render(request, 'mtihani/add_exam.html', context)                  

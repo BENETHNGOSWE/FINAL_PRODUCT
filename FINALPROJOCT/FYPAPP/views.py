@@ -46,7 +46,7 @@ def update_course(request, pk):
 # *******************************************************************
 
 def module_manage(request):
-    context = {'masomo': Masomo.objects.all()}
+    context = {'module_manage': Masomo.objects.all()}
     return render(request, 'FYPAPP/module_manage.html', context)
 
 
@@ -55,11 +55,13 @@ def add_module(request):
         form = MasomoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/moduledata')
+        return redirect('/moduledata')
 
     else:
-        form = MasomoForm()
-        return render(request, 'FYPAPP/add_module.html', {"form":form})        
+         form = MasomoForm()
+         return render(request, 'FYPAPP/add_module.html', {"form":form})           
+
+
 
 def update_module(request, pk):
     masomo = Masomo.objects.get(id=pk)
@@ -72,7 +74,9 @@ def update_module(request, pk):
             return redirect('/moduledata')
 
     context = {"form":form}
-    return render(request, 'FYPAPP/add_module.html', context)        
+    return render(request, 'FYPAPP/add_module.html', context)  
+
+# ********************************************************************************* 
 
 def update_course(request, pk):
     course = Course.objects.get(id=pk)
@@ -121,6 +125,8 @@ def update_question(request, pk):
 
     context = {"form": form }
     return render(request, 'FYPAPP/add_question.html', context)
+        
+
         
 def delete_question(request, pk):
     question = Question.objects.get(id=pk)

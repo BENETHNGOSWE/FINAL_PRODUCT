@@ -275,7 +275,7 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Question</b></h2>
+						<h2>Manage <b>Course</b></h2>
 					</div>
 					<div class="col-sm-6">
 						<!-- <a href="{% url 'FYPAPP:add_question' %}" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Module</span></a> -->
@@ -292,12 +292,14 @@ $(document).ready(function(){
 								<label for="selectAll"></label>
 							</span>
 						</th>
-						<th>Module Name</th>
-						<th>Module Code</th>
-                       	<th>Actions</th>
+					
+						<th>moduleName</th>
+						<th>moduleCode</th>
+						<!-- <th>Actions</th> -->
+						<th>Actions</th>
 					</tr>
 				</thead>
-				{% for m in masomo %}
+				{% for somo in module_manage %}
 				<tr>
 					<td>
 						<span class="custom-checkbox">
@@ -305,13 +307,14 @@ $(document).ready(function(){
 							<label for="selectAll"></label>
 						</span>
 					</td>
-					<td>{{m.moduleName}}</td>
-					<td>{{m.moduleCode}}</td>
+					<td>{{ somo.moduleName }}</td>
+					<td>{{ somo.moduleCode }}</td>
 					<td>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-6">
-                          	</div>
+									<a href="{% url 'FYPAPP:update_module' somo.id %}" class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</a>
+								</div>
 
 								<div class="col-6">
 									<!-- <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->

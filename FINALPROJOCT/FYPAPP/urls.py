@@ -13,10 +13,13 @@ urlpatterns = [
     path('coursedata/', views.course_manage, name='course_manage'),
     path('updatecourse/<str:pk>/', views.update_course, name="update_course"),
 
+    path('addmodule/', views.add_module, name='add_module'),
+    path('moduledata/', views.module_manage, name='module_manage'),
+    path('updatemodule/<str:pk>/', views.update_module, name="update_module"), 
 
-    path('addmodule/', views.add_module, name="add_module"),
-    path('moduledata/', views.module_manage, name="module_manage"),
-    path('updatemodule/', views.update_module, name="update_module"),
+    # path('addmodule/', views.add_module, name="add_module"),
+    # path('moduledata/', views.module_manage, name="module_manage"),
+    # path('updatemodule/', views.update_module, name="update_module"),
    
 
 
