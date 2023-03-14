@@ -316,8 +316,8 @@ $(document).ready(function(){
 								</div>
 
 								<div class="col-6">
-									<!-- <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
-									<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+									<a href="{% url 'FYPAPP:delete_course' c.id %}" class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</a>									<!-- <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
+									<!-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->
 								</div>
 							</div>
 						</div>

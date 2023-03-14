@@ -43,11 +43,11 @@ class Topic(models.Model):
     def __str__(self):
         return self.topicName
 
-# class QuestionType(models.Model):
-#     questiontype = models.CharField(max_length=30)
+class QuestionType(models.Model):
+    questiontype = models.CharField(max_length=30)
 
-#     def __str__(self):
-#         return self.questiontype
+    def __str__(self):
+        return self.questiontype
 
 
 class QuestionSection(models.Model):
@@ -56,15 +56,15 @@ class QuestionSection(models.Model):
     def __str__(self):
         return self.questionsection
 
-# class QuestionLevel(models.Model):
-#     questionLevel = models.CharField(max_length=30)
+class QCategory(models.Model):
+    questionType = models.CharField(max_length=30, null=True, blank=True, choices=questiontype)
 
-#     def __str__(self):
-#         return self.questionLevel
+    def __str__(self):
+        return self.questionType
 
 
 class Question(models.Model):
-    questiontype = models.CharField(max_length=30, null=True, choices=questiontype)
+    questionType = models.ForeignKey(QCategory, on_delete=models.CASCADE, default='multichoice_Questions')
     questionLevel = models. CharField(max_length=30, null=True, choices=questionlevel)
     somo = models.ForeignKey('Masomo', on_delete=models.CASCADE)
     topic = models.ForeignKey('Topic', on_delete=models.CASCADE)

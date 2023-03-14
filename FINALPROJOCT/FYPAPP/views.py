@@ -43,6 +43,10 @@ def update_course(request, pk):
     context = {"form":form}
     return render(request, 'FYPAPP/add_course.html', context)
 
+def delete_course(request, pk):
+    course = Course.objects.get(id=pk)
+    course.delete()
+    return redirect('/coursedata')
 # *******************************************************************
 
 def module_manage(request):
@@ -78,18 +82,6 @@ def update_module(request, pk):
 
 # ********************************************************************************* 
 
-def update_course(request, pk):
-    course = Course.objects.get(id=pk)
-    form = CourseForm(instance=course)
-
-    if request.method == "POST":
-        form = CourseForm(request.POST, instance=course)
-        if form.is_valid():
-            form.save()
-            return redirect('/coursedata')
-
-    context = {"form":form}
-    return render(request, 'FYPAPP/add_course.html', context)
 # ****************************************************************************
 
 
