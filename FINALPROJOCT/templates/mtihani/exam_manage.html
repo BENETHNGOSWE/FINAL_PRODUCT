@@ -287,18 +287,23 @@ $(document).ready(function(){
                 
                     <thead>
                         <tr>
-                            <th>examinationType</th>
-                            <th>examinationName</th>
-                            <th>semeter</th>
+                            <!-- <th>examinationType</th> -->
                             <th>course</th>
-                            <!-- <th>module</th> -->
+                            <th>semeter</th> 
+							<!-- <th>Generate Exam</th> -->
+                           
                         </tr>
                     </thead>
                     {% for exam in exam_manage %}
                     <tr>
-                        <td>{{ exam.examinationType }}</td>
-                        <td>{{ exam.examinationName }}</td>
+                       
+                        <td>{{ exam.course }}</td>
                         <td>{{ exam.semeter }}</td>
+						<td>
+							<!-- <button class="btn btn-primary">Generate Exam</button> -->
+							<a href="{% url 'mtihani:select_questions' %}" class="btn btn-primary">Generate Exam</a>
+						</td>
+						<!-- <td>{{ exam.module }}</td>  -->
                     	<td>
 							<div class="container-fluid">
 								<div class="row">
@@ -310,17 +315,15 @@ $(document).ready(function(){
 										<!-- <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
 										<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 									</div>
+									
 								</div>
 							</div>
 						</td>
-                        <!-- <td>{{ exam.module }}</td> 
-						<td>{{ exam.examDuration }}</td> 
-						<td>{{ exam.examFullmark }}</td> 
-						<td>{{ exam.questionSection }}</td> 
-						<td>{{ exam.examinationDescription }}</td>  -->
+                          
+						
                     </tr>
                     {% endfor %}
-                
+			
 			</table>
 		
 		</div>

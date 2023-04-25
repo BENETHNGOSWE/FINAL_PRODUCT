@@ -1,24 +1,31 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
-from .models import Course, Masomo, Question
-from .forms import QuestionForm, CourseForm, MasomoForm
-
+from .models import Course, Masomo, Question,QuestionChoice
+from .forms import QuestionForm, CourseForm, MasomoForm, QuestionChoiceForm
+from django.db import connection
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
-# def home(request):
-#     return render(request, 'FYPAPP/home.html')
-#     # return render(request,'teacher/teacher_dashboard.html'
+def dashboard(request):
+    return render(request, 'FYPAPP/dashboard.html')
+    # return render(request,'teacher/teacher_dashboard.html'
 
 # def dashboard(request):
 #     return render(request, 'FYPAPP/dashboard.html')
 
-
+# @login_required
 def course_manage(request):
     context = {'course':  Course.objects.all()}
     return render(request, 'FYPAPP/course_manage.html', context)
-
+    
+def total(request):
+    courses = Masomo.objects.all()
+    totalcourse = courses.count()
+    print(totalcourse)
+    context = {'courses':courses, 'totalcourse':totalcourse}
+    return render(request, 'FYPAPP/course_manage.html', context)
 
 def add_course(request):
     if request.method == "POST":
@@ -29,7 +36,8 @@ def add_course(request):
 
     else:
         form = CourseForm()
-        return render(request, 'FYPAPP/add_course.html', {"form":form})     
+        return render(request, 'FYPAPP/add_course.html', {"form":form})    
+         
 def update_course(request, pk):
     course = Course.objects.get(id=pk)
     form = CourseForm(instance=course)
@@ -129,15 +137,49 @@ def delete_question(request, pk):
 
     context = {"question":question}
     return render(request, 'FYPAPP/question_manage.html', context)
+#   ****************************************************************
+def question_choice_manage(request):
+    context = {'question_choice': QuestionChoice.objects.all()}
+    return render(request, "FYPAPP/question_choice_manage.html", context)
+
+
+def add_question_choice(request):
+    if request.method == "POST":
+        form = QuestionChoiceForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('/choice')
+    else:
+        form = QuestionChoiceForm()
+        return render(request, "FYPAPP/add_question_choice.html", {'form':form})        
+
+def update_question_choice(request, pk):
+    question = QuestionChoice.objects.get(id=pk)
+    form = QuestionChoiceForm(instance=question)
+
+    if request.method == "POST":
+        form = QuestionChoiceForm(request.POST, instance=question)
+        if form.is_valid():
+            form.save()
+        return redirect('/choice')
+
+    context = {'form':form}
+    return render(request, 'FYPAPP/add_question_choice.html', context)
+
+def display(request):
+    category = QuestionChoice.objects.filter(category_id=1).only('question')
+    print(category)
+    print(connection.queries)
+    return render(request, "FYPAPP/add_question_choice.html", {'category':category})        
 
 
 
-class home(TemplateView):
-    template_name = 'FYPAPP/home.html'
+# class home(TemplateView):
+#     template_name = 'FYPAPP/home.html'
 
 
-class dashboard(TemplateView):
-    template_name = 'FYPAPP/dashboard.html'
+# class dashboard(TemplateView):
+#     template_name = 'FYPAPP/dashboard.html'
   
 
 
