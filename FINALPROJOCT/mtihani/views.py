@@ -132,26 +132,26 @@ class select_questions(View):
         # Retrieve questions from database and shuffle them
             questions = list(QuestionChoice.objects.all())
             random.shuffle(questions)
-            
+
             questionshort = list(QuestionShortterm.objects.all())
             random.shuffle(questionshort)
-            
+
             questionlong = list(QuestionLongTerm.objects.all())
             random.shuffle(questionlong)
-            
+
             # Save only the required number of questions
             questions = questions[:num_questions]
             for question in questions:
                 question.save()
-            
+
             questionshort = questionshort[:num_shortquestions]
             for question in questionshort:
                 question.save()
-            
+
             questionlong = questionlong[:num_longquestions]
             for question in questionlong:
                 question.save()
-            
+
             # Create a context containing the questions, semester, and exam_name
             context = {
                 'course': course,
@@ -171,7 +171,7 @@ class select_questions(View):
                 'questionshort': questionshort,
                 'questionlong': questionlong,
             }
-            
+
             # Render the HTML template with the context
             html = render_to_string('pdf2.html', context)
             response = HttpResponse(content_type='application/pdf')
@@ -179,10 +179,10 @@ class select_questions(View):
             buffer = BytesIO()
             HTML(string=html).write_pdf(buffer)
             response.write(buffer.getvalue())
-    
+
             # Return the PDF as an HTTP response
             return response
         
         return render(request, 'mtihani/generate_exam.html', {'form': form})
    
-        
+    
