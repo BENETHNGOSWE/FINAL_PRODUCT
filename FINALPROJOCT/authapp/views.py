@@ -11,6 +11,10 @@ from django.contrib.auth.decorators import login_required
 def HomePage(request):
     return render(request, 'FYPAPP/dashboard.html', {})
 
+@login_required
+def Profile(request):
+    return render(request, 'authapp/profile.html')
+
 def Register(request):
     if request.method == 'POST':
         fname = request.POST.get('fname')
@@ -18,6 +22,10 @@ def Register(request):
         name = request.POST.get('uname')
         password = request.POST.get('pass')
         confirm_password = request.POST.get('confirmpass')
+
+        if password != confirm_password:
+            error_msg = 'Password do not match. Please write again'
+            return render(request, 'authapp/register.html', {'error_msg':error_msg})
 
         new_user = User.objects.create_user(name, confirm_password, password)
         new_user.first_name = fname

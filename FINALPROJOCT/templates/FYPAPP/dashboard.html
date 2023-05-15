@@ -1,8 +1,8 @@
 {% extends 'FYPAPP/home.html' %}
-
-
 {% block content%}
-
+{% if not user.is_authenticated %}
+<p>You must be logged in to access the dashboard.</p>
+{% else %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,16 +19,19 @@
     />
     <style>
       .dashboard-header{
-      background: linear-gradient(to right, #2634eb, #829df3 90%);
-      border-radius: 5px;
-      background-color: rgba(113, 185, 202, 255);
+      background-color:  rgba(213,222,225,28%);
+      /* border-radius: 5px; */
+      /* background-color: rgba(113, 185, 202, 255); */
       color: white;
+      width: 82.8em;
+      height: 3em;
+
       }
       .containerkuu{
       /* background-color: #F56565; */
       position: relative;
       margin-left: 16em;
-      margin-top: 1em;
+      /* margin-top: 1em;/ */
       width: 83em;
       height: 29em;
     }
@@ -40,7 +43,7 @@
       margin-left: 1em;
       margin-right: 0.6em;
       margin-bottom: 1em;
-      background: linear-gradient(to right, #2634eb, #829df3 90%);
+      background: rgba(25,107,140,255);
       box-shadow: 2px 2px 2.5px 3px rgb(242, 244, 245);
       border-radius: 5px;
     }
@@ -59,7 +62,7 @@
       margin-left: 1em;
       margin-right: 0.6em;
       margin-bottom: 1em;
-      background: linear-gradient(to right, #4CAF50, #6fbf73);
+      background: rgba(25,107,140,255);
       box-shadow: 2px 2px 2.5px 3px rgb(242, 244, 245);
       border-radius: 5px;
       /* background: linear-gradient(to right, #e93e3e, #eb5c5c 90%); */
@@ -79,7 +82,7 @@
       margin-left: 1em;
       margin-right: 0.6em;
       margin-bottom: 1em;
-      background: linear-gradient(to right, #db6f26, #e69056 90%);
+      background: rgba(25,107,140,255);
       box-shadow: 2px 2px 2.5px 3px rgb(242, 244, 245);
       border-radius: 5px;
     }
@@ -101,7 +104,7 @@
       /* background-color: rgba(235,79,80,255); */
       box-shadow: 2px 2px 2.5px 3px rgb(242, 244, 245);
       border-radius: 5px;
-      background: linear-gradient(to right, #e93e3e, #eb5c5c 90%);
+      background: rgba(25,107,140,255);
     }
     .card4-body{
       margin-top: 1em;
@@ -118,7 +121,7 @@
       margin-left: 3em;
       border-radius: 5px;
       width: 37em;
-      height: 11em;
+      height: 12em;
       margin-top: 2em;
       background-color: white;
       box-shadow: 2px 2px 2.5px 3px rgb(242, 244, 245);
@@ -131,6 +134,14 @@
       height: 5.5em;
       margin-left: 14px;
     }
+
+    .quick-links-btn-dept{
+      background-color: white;
+      box-shadow: 3px 3px 2.5px 5px rgb(242, 244, 245);
+      width: 39em;
+      height: 5.5em;
+      margin-left: 14px;
+    }
     .quick-links-btn-header{
       /* margin-top: -0.7em; */
       margin-left: 0.9em;
@@ -140,13 +151,25 @@
       /* margin-top: 2em; */
       margin-left: 0.6em;
       color: black;
+      /* background-color: rgba(213,222,225,28%); */
+    }
+    .quick-header-top{
+      background-color:  rgba(213,222,225,28%);
+      /* width: 20em; */
+      height: 3.7em;
+    }
+    .quick-links-btn-mini{
+      background-color:  rgba(213,222,225,28%);
+      /* width: 20em; */
+      height: 2em;
     }
     .notification{
-      margin-top: -12em;
+      margin-top: -11em;
       position: relative;
-      margin-left: 45em;
+      margin-left: 44.3em;
       margin-right: 0.9em;
-      height: 25em;
+      height: 26em;
+      width: 37em;
       background-color: white;
       box-shadow: 2px 2px 2.5px 3px rgb(242, 244, 245);
       border-radius: 5px;
@@ -203,6 +226,13 @@
       /* width: 23em; */
 
     }
+    .dept{
+      background-color: white;
+      box-shadow: 2px 2px 2.5px 3px rgb(242, 244, 245);
+      margin-top: 1em;
+      border-radius: 5px;
+      height: 12em;
+    }
     .row{
       margin-top: 5.5em;
     }
@@ -221,20 +251,65 @@
       margin-top: 0.6em;
       color: white;
     }
-    
+    .button{
+      margin-top: 0.7em;
+      margin-left: 0.7em;
+    }
+    .user{
+      margin-left: 68em;
+    }
+    .nav-items{
+      color: black;
+
+    }
+    .nav-item{
+      margin-left: 1em;
+    }
+    /* .btn{
+      color: white;
+    } */
     </style>
  
 </head>
 <body>
 
   <div class="containerkuu">
+
     <div class="dashboard-header">
-      <h2 class="text-center">DASHBOARD</h2>
+      <!-- <h2 style="color:black;">DASHBOARD</h2>
+      <h2 style="color:black;">DASHBOARD</h2> -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">DASHBOARD</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="user">
+          <ul class="navbar-nav mr-auto"></ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-items">
+              <!-- <a class="nav-link" href="#"></a> -->
+              <!-- <h2 class="account-heading"></h2> -->
+              {{ user.username }}
+            </li>
+            <li class="nav-item">
+              <!-- <img src="your-image-source" alt="Your Image" class="nav-link rounded-circle" width="30" height="30"> -->
+              <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" style="width: 30px; height: 30px; border-radius: 50%;" />
+
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
     </div>
+
     <div class="nafasi">
+      <h2>{{ num_questions }}</h2>
       <div class="maswali">
         <div class="rowcol">
-            <h3 class="quick-header">Quick Links</h3><hr>
+          <div class="quick-header-top">
+            <h3 class="quick-header">Quick Links</h3>
+          </div>
+        
             <div class="row">
               <div class="col">
                 <div class="card">
@@ -244,6 +319,8 @@
                 <div class="space2"></div>
                 <div class="card2">
                   <p class="card-header"><b>TOTAL QUESTIONS</b></p>
+                  <h2>{{ num_questions }}</h2>
+                  {{ num_questions }}
                 </div>
               </div>
             </div>
@@ -259,86 +336,120 @@
                 </div>
               </div>
            </div>
+           <!-- TOTAL TABLE END HERE -->
 
-           <div class="masomoyangu">
-            <h3 class="quick-header">Quick Links</h3>
-          <div class="masomoyangu-table">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-          </div> 
-         </div> 
+
+           <!-- DEPT TABLE HERE -->
+           <br>
+          <div class="dept">
+            <div class="quick-header-top">
+              <h3 class="quick-header">DEPARTMENT</h3>
+            </div><br>
+            <div class="quick-links-btn-dept">
+              <div class="quick-links-btn-mini">
+                <h6 class="quick-links-btn-header">ADD DEPTARMENT</h6>
+              </div>
+              <div class="button">
+              
+                  
+                <a href="{% url 'FYPAPP:add_dept' %}">
+                  <button class="btn" style="background: rgba(25,107,140,255); color: white;">ADD DEPTARMENT</button>
+                </a>
+                <a href="{% url 'FYPAPP:dept_manage' %}">
+                  <button class="btn " style="background: rgba(25,107,140,255); color: white;">MANAGE DEPTARMENT</button>
+                </a>
+            </div> 
+            </div>
+          </div>
         </div>
+        <!-- DEPT TABLE END HERE -->
+      </div>
+      
+
+      <div class="dept">
         
+        <!-- <h3>benny</h3> -->
       </div>
-
+      <!-- ADD QUESTION TABLE STAR HERE -->
     <div class="quick">
-      <h3 class="quick-header">Quick Links</h3><hr>
+      <div class="quick-header-top">
+        <h3 class="quick-header">Quick Links</h3>
+      </div><br>
       <div class="quick-links-btn">
-        <h6 class="quick-links-btn-header">ADD QUESTION FOR</h6><hr>
-        <div class="button">
-          <button class="btn" style="background: linear-gradient(to right, #2634eb, #829df3 90%);">MULTIPE CHOICE</button>
-          <button class="btn"style="background: linear-gradient(to right, #4CAF50, #6fbf73)">SHORT TERMS</button>
-          <button class="btn" style="background: linear-gradient(to right, #db6f26, #e69056 90%);">LONG TERMS</button>
-          <button class="btn " style="background: linear-gradient(to right, #e93e3e, #eb5c5c 90%);">MANAGE QNS</button>
+        <div class="quick-links-btn-mini">
+          <h6 class="quick-links-btn-header">ADD QUESTION FOR</h6>
         </div>
+        <div class="button">
+          <a href="{% url 'FYPAPP:add_question_choice' %}">
+            <button class="btn" style="background: rgba(25,107,140,255); color: white;">
+              MULTIPE CHOICE
+            </button>
+          </a>
+          <a href="{% url 'FYPAPP:add_question_short' %}">
+            <button class="btn" style="background: rgba(25,107,140,255); color: white;">SHORT TERMS</button>
+          </a>
+          <a href="{% url 'FYPAPP:add_question_choice' %}">
+            <button class="btn" style="background: rgba(25,107,140,255); color: white;">LONG TERMS</button>
+          </a>
+          <a href="{% url 'FYPAPP:add_question_choice' %}">
+            <button class="btn " style="background: rgba(25,107,140,255); color: white;">MANAGE QNS</button>
+          </a>
       </div>
+      </div>
+      <!-- ADD QUESTION TABLE END HERE -->
    </div> 
-   
   </div>
 
-
+  <!-- ADD COURSE MODULE EXAM TABLE STARS HERE -->
   <div class="notification">
-    <h3 class="quick-header">Quick Links</h3><hr>
-  <div class="quick-links-btn ">
-    <h6 class="quick-links-btn-header">COURSE</h6><hr>
-    <div class="button">
-      <button class="btn" style="background: linear-gradient(to right, #2634eb, #829df3 90%);">ADD COURSE</button>
-      <button class="btn " style="background: linear-gradient(to right, #e93e3e, #eb5c5c 90%);">MANAGE COURSE</button>
+    <div class="quick-header-top">
+      <h3 class="quick-header">Quick Links</h3>
     </div>
-  </div><br>
-  <div class="quick-links-btn">
-    <h6 class="quick-links-btn-header">MODULE</h6><hr>
-    <div class="button">
-      <button class="btn" style="background: linear-gradient(to right, #2634eb, #829df3 90%);">ADD MODULE</button>
-      <button class="btn " style="background: linear-gradient(to right, #e93e3e, #eb5c5c 90%);">MANAGE MODULE</button>
-    </div>
-  </div><BR>
-  <div class="quick-links-btn">
-    <h6 class="quick-links-btn-header">EXAM</h6><hr>
-    <div class="button">
-      <button class="btn btn-primary">EXAM</button>
-      <button class="btn " style="background: linear-gradient(to right, #e93e3e, #eb5c5c 90%);">MANAGE EXAM</button>
+    <br>
+    <div class="quick-links-btn ">
+      <div class="quick-links-btn-mini">
+        <h6 class="quick-links-btn-header">COURSE</h6>
+      </div>
+      <div class="button">
+        <a href="{% url 'FYPAPP:add_course' %}">
+          <button class="btn" style="background: rgba(25,107,140,255); color: white;">ADD COURSE</button>
+        </a>
+        <a href="{% url 'FYPAPP:course_manage' %}">
+          <button class="btn " style="background: rgba(25,107,140,255); color: white;">MANAGE COURSE</button>
+        </a>
+      </div>
+    </div><br>
+    <div class="quick-links-btn">
+      <div class="quick-links-btn-mini">
+        <h6 class="quick-links-btn-header">MODULE</h6>
+      </div>
+      
+      <div class="button">
+        <a href="{% url 'FYPAPP:add_module' %}">
+          <button class="btn" style="background: rgba(25,107,140,255); color: white;">ADD MODULE</button>
+        </a>
+        <a href="{% url 'FYPAPP:module_manage' %}">
+          <button class="btn " style="background: rgba(25,107,140,255); color: white;">MANAGE MODULE</button>
+        </a>
+      </div>
+    </div><BR>
+    <div class="quick-links-btn">
+      <div class="quick-links-btn-mini">
+        <h6 class="quick-links-btn-header">EXAM</h6>
+      </div>
+      
+      <div class="button">
+        <a href="{% url 'mtihani:add_exam' %}">
+          <button class="btn" style="background: rgba(25,107,140,255); color: white;">EXAM</button>
+        </a>
+        
+        <a href="{% url 'mtihani:exam_manage' %}">
+          <button class="btn " style="background: rgba(25,107,140,255); color: white;">MANAGE EXAM</button>
+        </a>
+      </div>
     </div>
   </div>
-  </div>
-  
+  <!-- ADD COURSE MODULE EXAM TABLE END HERE -->
 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
@@ -348,6 +459,6 @@
 </body>
 </html>
 
-
+{% endif %}
 {% endblock content %}
 

@@ -1,0 +1,12 @@
+
+{% block content %}
+  <h1>Question Count</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Count</button>
+  </form>
+  {% if question_count %}
+    <p>Total number of questions in the selected category: {{ question_count }}</p>
+  {% endif %}
+{% endblock %}

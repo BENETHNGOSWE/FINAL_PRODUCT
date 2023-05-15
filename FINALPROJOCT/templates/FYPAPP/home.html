@@ -20,7 +20,7 @@
             background-color: #e6e6e6; 
         }
         .boxkushoto .sidebar{
-            background: linear-gradient(35deg, #66fcf1, #45a34e);
+            background: rgba(25,107,140,255);
             position: fixed;
             top: 0;
             left: 0;
@@ -31,14 +31,14 @@
             transition: all 0.3s ease;
         }
 
-        .navigationBar {
+        /* .navigationBar {
             background-color: white;
             height: 50px;
             display: flex;
             padding: 38px 0px;
             align-items: center;
             box-shadow: 0 4px 2px -2px #c5c6c7;
-        }
+        } */
 
         .sidebar-header {
             padding: 10px 25px 10px 15px;
@@ -72,7 +72,13 @@
             padding: 0px 18px;
             margin-top: 30px;
         }
-       
+        .btn{
+            color: white;
+        }
+        .exam-header{
+            color: black;
+        }
+        
     </style>
     </head>
 
@@ -94,7 +100,7 @@
             </div>
             <div class="sidebar-body">
                 <ul class="navigation-list">
-                    <h5>EXAM</h5>
+                    <div class="exam-header"><h5>Exam</h5></div>
                     <hr style="color:rgb(255, 255, 255);margin-top:12px;">
 
                     <div>
@@ -102,6 +108,17 @@
                         <button type="button" class="btn btn-white">DASHBOARD</button>
                     </div>
                     <br/>
+                    <div class="dropdown">
+                        <button class="btn btn-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          DEPARTMENT
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" href="{% url 'FYPAPP:add_dept' %}">ADD DEPARTMENT</a></li>
+                          <li><a class="dropdown-item" href="{% url 'FYPAPP:dept_manage' %}">MANAGE DEPARTMENT</a></li>
+                          
+                        </ul>
+                    </div>
+                    <br>
 
                     <div class="dropdown">
                         <button class="btn btn-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -114,7 +131,6 @@
                         </ul>
                     </div>
                     <br/>
-
                     <div class="dropdown">
                         <button class="btn btn-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                           MODULE
@@ -128,11 +144,13 @@
                     <br/>
 
                     <div class="dropdown">
-                        <button class="btn btn-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn"  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                           QUESTION
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="{% url 'FYPAPP:add_question' %}">ADD QUESTION</a></li>
+                          <li><a class="dropdown-item" href="{% url 'FYPAPP:add_question' %}">ADD MULTIPE CHOICE</a></li>
+                          <li><a class="dropdown-item" href="{% url 'FYPAPP:add_question' %}">ADD SHORT TERMS</a></li>
+                          <li><a class="dropdown-item" href="{% url 'FYPAPP:add_question' %}">ADD LONG TERMS</a></li>
                           <li><a class="dropdown-item" href="{% url 'FYPAPP:question_manage' %}">MANAGE QUESTION</a></li>
                         </ul>
                     </div>
@@ -151,11 +169,22 @@
                     <br/>
 
                     <hr style="color:rgb(255, 255, 255);margin-top:30px;">
-                    <H5>PROFILE</H5>
+                    <div class="exam-header"><h5>Profile</h5></div>
                     <hr style="color:rgb(255, 255, 255);margin-top:30px;">
                     <div>
-                        <i class="fas fa-users"></i>
-                        <button type="button" class="btn btn-white">PROFILE</button>
+                        <!-- <i class="fas fa-users"></i>
+                        <button type="button" class="btn btn-white">PROFILE</button> -->
+                        <div class="dropdown">
+                            <!-- <i class="fas fa-users"></i> -->
+                            <button class="btn btn-white" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" >PROFILE </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'mtihani:exam_manage' %}">Login </a></li>
+
+                            </ul>
+                            <!-- <a href="{% url 'FYPAPP:question_manage' %}" class="btn btn-outline-dark ms-2">List All</a> -->
+    
+                        </div>
                     </div>
 
                 </ul>
@@ -165,6 +194,9 @@
         
         <!-- <div class="content">
             <div class="navigationBar">
+                <button id="sidebarToggle" class="btn sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </a>
             </div>
         </div> -->
         

@@ -9,4 +9,6 @@ urlpatterns = [
     path('exam/', views.exam_manage, name="exam_manage"),
     path('updateexam/<str:pk>/', views.update_exam, name="update_exam"),
     path('selectquestions/', views.select_questions.as_view(), name="select_questions"),
+
+    # path('qrcode/', views.GenerateQRCode, name="GenerateQRCode"),
 ]

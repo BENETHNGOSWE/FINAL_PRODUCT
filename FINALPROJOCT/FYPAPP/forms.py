@@ -1,5 +1,5 @@
 from django import forms
-from .models import Masomo, Question, Course, QCategory,QuestionChoice
+from .models import Category,Masomo, Course, QuestionChoice, QuestionShortterm, QuestionLongTerm, Department
 
 
 class MasomoForm(forms.ModelForm):
@@ -9,7 +9,7 @@ class MasomoForm(forms.ModelForm):
 
 class QuestionForm(forms.ModelForm):
     class Meta:
-        model = Question
+        model = QuestionLongTerm
         fields = '__all__'
 
 class CourseForm(forms.ModelForm):
@@ -17,17 +17,25 @@ class CourseForm(forms.ModelForm):
         model = Course
         fields = '__all__'
 
-class QCategoryForm(forms.ModelForm):
+class DepartmentForm(forms.ModelForm):
     class Meta:
-        model = QCategory
+        model = Department
         fields = '__all__'      
 
 class QuestionChoiceForm(forms.ModelForm):
     class Meta:
         model = QuestionChoice
         fields = '__all__'
+ 
+class QuestionShorttermForm(forms.ModelForm):
+    class Meta:
+        model = QuestionShortterm   
+        fields = '__all__'   
 
         
+class QuestionCountForm(forms.Form):
+    category = forms.ModelChoiceField(queryset=Category.objects.all())
+           
 # class QuestionForm(models.Model):
 #     questiontype = models.ForeignKey('QuestionType', on_delete=models.CASCADE)
 #     questionLevel = models. ForeignKey('QuestionLevel', on_delete=models.CASCADE)

@@ -30,7 +30,7 @@
             background-color: #e6e6e6;
         }
         .page .sidebar{
-            background: linear-gradient(35deg, #66fcf1, #45a34e);
+            background: rgba(25,107,140,255);
             position: fixed;
             top: 0;
             left: 0;
@@ -45,16 +45,17 @@
         .page .content{
             margin-left: 250px;
             transition: all 0.3s ease;
+            
         }
 
         .navigationBar {
             background-color: white;
-            height: 50px;
+            height: 55px;
             display: flex;
-            padding: 38px 0px;
-            align-items: center;
+            padding: 38px;
+            /* align-items: center; */
             box-shadow: 0 4px 2px -2px #c5c6c7;
-        }
+        } 
 
         .sidebarToggle {
             font-size: 16px;
@@ -135,6 +136,7 @@
             list-style-type:none;
             padding: 0px 18px;
             margin-top: 30px;
+            
         }
         .navigation-list-item {
             padding: 12px 18px 12px 25px;
@@ -194,6 +196,15 @@
         .teams-item i {
             font-size: 12px;
         }
+        .sidebar-top{
+            color: black;
+        }
+        .dropdown{
+            color: white;
+        }
+        .btn{
+            color: white;
+        }
     </style>
     </head>
 
@@ -220,7 +231,7 @@
             </div>
             <div class="sidebar-body">
                 <ul class="navigation-list">
-                    <h5>EXAM</h5>
+                    <h5 class="sidebar-top">EXAM</h5>
                     <hr style="color:rgb(255, 255, 255);margin-top:12px;">
 
                     <div>
@@ -230,7 +241,7 @@
                     <br/>
 
                     <div class="dropdown">
-                        <button class="btn btn-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                           COURSE
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -254,7 +265,7 @@
                     <br/>
 
                     <div class="dropdown">
-                        <button class="btn btn-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                           QUESTION
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -271,7 +282,7 @@
                     <br/>
 
                     <hr style="color:rgb(255, 255, 255);margin-top:30px;">
-                    <H5>PROFILE</H5>
+                    <h5 class="sidebar-top">PROFILE</h5>
                     <hr style="color:rgb(255, 255, 255);margin-top:30px;">
                     <div>
                         <i class="fas fa-users"></i>
@@ -283,13 +294,13 @@
             </div>
         </div>
         
-        <div class="content">
+        <!-- <div class="content">
             <div class="navigationBar">
                 <button id="sidebarToggle" class="btn sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </a>
             </div>
-        </div>
+        </div> -->
         
     </div>
  

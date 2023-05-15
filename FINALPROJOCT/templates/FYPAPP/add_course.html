@@ -1,4 +1,4 @@
-{% extends 'mtihani/home.html' %}
+{% extends 'FYPAPP/dashboard.html' %}
 
 {% block content %}
 
@@ -32,6 +32,8 @@ body {
 	border-radius: 3px;
 	min-width: 1000px;
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	margin-top: 2em;
+	/* table position created here */
 }
 .table-title {        
 	padding-bottom: 15px;
@@ -46,54 +48,59 @@ body {
 	margin: 5px 0 0;
 	font-size: 24px;
 }
+.course{
+	margin-top: 2em;
+}
 
 </style>
 
 </head>
 <body>
-<div class="container-xl">
-	<div class="table-responsive">
-		<div class="table-wrapper">
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6">
-						<h2>Add <b>Course</b></h2>
+	<div class="course">
+		<div class="container-xl">
+			<div class="table-responsive">
+				<div class="table-wrapper">
+					<div class="table-title">
+						<div class="row">
+							<div class="col-sm-6">
+								<h2>Add <b>Course</b></h2>
+							</div>
+							
+						</div>
 					</div>
-					
-				</div>
+					<form method="POST" action="#">
+				{% csrf_token %}
+			   
+		<div class="row g-1">
+			<div class="col">
+			  
+			  <div class="form-outline">
+			 
+				<label class="form-label" for="form9Example1">CourseName</label>
+				{{ form.courseName }}
+			  </div>
 			</div>
-			<form method="POST" action="#">
-        {% csrf_token %}
-       
-<div class="row g-1">
-    <div class="col">
-      
-      <div class="form-outline">
-     
-        <label class="form-label" for="form9Example1">CourseName</label>
-        {{ form.courseName }}
-      </div>
-    </div>
-    <div class="col">
-    
-      <div class="form-outline">
-        <!-- <input type="text" id="form9Example3" name="topic" class="form-control" /> -->
-        <label class="form-label" for="form9Example3">CourseCode</label>
-        {{ form.courseCode }}
-      </div>
-    </div>
-  </div>
-        
-        <div class="mt-5">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="reset" class="btn btn-secondary ms-2">Reset</button>
-            <a href="{% url 'FYPAPP:course_manage' %}" class="btn btn-outline-dark ms-2">List All</a>
-        </div>
-    </form>
-		
+			<div class="col">
+			
+			  <div class="form-outline">
+				<!-- <input type="text" id="form9Example3" name="topic" class="form-control" /> -->
+				<label class="form-label" for="form9Example3">CourseCode</label>
+				{{ form.courseCode }}
+			  </div>
+			</div>
+		  </div>
+				
+				<div class="mt-5">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="reset" class="btn btn-secondary ms-2">Reset</button>
+					<a href="{% url 'FYPAPP:course_manage' %}" class="btn btn-outline-dark ms-2">List All</a>
+				</div>
+			</form>
+				
+				</div>
+			</div>        
 		</div>
-	</div>        
-</div>
+	</div>
 
 
 </body>

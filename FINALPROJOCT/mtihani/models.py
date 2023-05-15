@@ -1,5 +1,5 @@
 from django.db import models
-from FYPAPP.models import Masomo, Course, QuestionSection, QCategory, QuestionChoice, QuestionShortterm,QuestionLongTerm
+from FYPAPP.models import Masomo, Course, QuestionSection,  QuestionChoice, QuestionShortterm,QuestionLongTerm
 import datetime
 # Create your models here.
 class Exam(models.Model):
@@ -23,6 +23,10 @@ class Exam(models.Model):
 class SavedExam(models.Model):
     mtihani = models.TextField(null=True, blank=True)
 
+
+class MtihaniTaarifa(models.Model):
+    deptname = models.CharField(max_length=100, null=True, blank=True)
+    semeter = models.CharField(max_length=20)
 
 
 class Mtihani(models.Model):

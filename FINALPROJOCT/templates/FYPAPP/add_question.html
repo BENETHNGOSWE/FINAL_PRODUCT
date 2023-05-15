@@ -1,4 +1,4 @@
-{% extends 'mtihani/home.html' %}
+{% extends 'FYPAPP/home.html' %}
 
 {% block content %}
 
@@ -89,15 +89,7 @@ body {
   
   <!-- Gutter g-5 -->
   <div class="row g-5">
-    <div class="col">
-      <!-- Name input -->
-      <div class="form-outline">
-        <!-- <input type="text" id="form9Example3" name="questiontype" class="form-control" /> -->
-        <label class="form-label" for="form9Example3">Question Type</label>
-        {{ form.questionType }}
-        
-      </div>
-    </div>
+   
     <div class="col">
       <!-- Email input -->
       <div class="form-outline">
@@ -114,7 +106,18 @@ body {
         <div class="form-outline">
           <!-- <input type="text" id="form9Example3" name="questiontext" class="form-control" /> -->
           <label class="form-label" for="form9Example3">Question Text</label>
-          {{ form.questionText }}
+          {{ form.question }}
+        </div>
+      </div>
+  </div>
+
+  <div class="row g-5">
+    <div class="col">
+        <!-- Email input -->
+        <div class="form-outline">
+          <!-- <input type="text" id="form9Example3" name="questiontext" class="form-control" /> -->
+          <label class="form-label" for="form9Example3">Question Answer</label>
+          {{ form.answer }}
         </div>
       </div>
   </div>
@@ -122,7 +125,7 @@ body {
         <div class="mt-5">
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="reset" class="btn btn-secondary ms-2">Reset</button>
-            <a href="{% url 'FYPAPP:question_manage' %}" class="btn btn-outline-dark ms-2">List All</a>
+            <a href="{% url 'FYPAPP:question_short_manage' %}" class="btn btn-outline-dark ms-2">List All</a>
         </div>
     </form>
 		

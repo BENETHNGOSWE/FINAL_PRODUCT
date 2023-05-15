@@ -52,6 +52,10 @@
      <p class="fw-bold">Multiple Choice questions</p>
      {% for question in questions %}
        <p>{{ question.question }}</p>
+       <p>{{ question.option1 }}</p>
+       <p>{{ question.option2 }}</p>
+       <p>{{ question.option3 }}</p>
+       <p>{{ question.option4 }}</p>
      {% endfor %}
      
      <h3 class="text-center">SECTION B </h3>
@@ -67,6 +71,7 @@
      {% for question in questionlong %}
        <p>{{ question.question }}</p>
      {% endfor %}
+     {{ num_shortquestions }}
 
    </body>
  </html>

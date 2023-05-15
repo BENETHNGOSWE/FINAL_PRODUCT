@@ -23,7 +23,7 @@
             color: white;
         }
         .homeinfo{
-            margin-top:190px;
+            margin-top:100px;
             margin-left: 20em;
             margin-right: 20em;
         }
@@ -52,20 +52,36 @@
             height: 100%;
             background-color: black;
         }
+        .top-header{
+            background-color: #90aac8;
+            
+        }
+        .top-header-text{
+            margin-top: -4.8em;
+        }
+        .footer{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            background-color: #90aac8;
+        
+        }
+
 
     </style>    
     <title>Exam Questions</title>
    </head>
    <body>
-    <div class="container">
-        <nav class="navbars fixed-top navbar-light bg-info">
-            <div class="container-fluid">
-                <img src="{% static 'images/nit.png'%}">
-              <h2 class="title fw-bold" >NATIONAL INSTUTUTE OF TRANSPORT</h2>
-              <h3 class="title">AUTOMATIC EXAMINATION GENERATOR</h3>
-            </div>
-          </nav>
-    </div>
+    <div class="top-header">
+      <img src="{% static 'images/nit.png'%}" class="img-fluid" alt="Sample image" style="width: 100px; height: 100px; border-radius: 50%;">
+
+      <div class="top-header-text">
+          <h2 class="title fw-bold" >NATIONAL INSTUTUTE OF TRANSPORT</h2>
+          <h3 class="title">AUTOMATIC EXAMINATION GENERATOR</h3>
+      </div>
+  </div>
     <div class="homeinfo">
         <div class="line-between">
         <div class="row">
@@ -107,13 +123,11 @@
 
       
 
-    <div class="container">
-        <nav class="navbardown fixed-bottom navbar-light bg-info">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">@2022-2023 NATIONAL INSTITUTE OF TRANSPORT</a>
-            </div>
-          </nav>
-    </div>
+      <footer class="footer">
+        <div class="container">
+          <span class="text-light"><a>@2022-2023 NATIONAL INSTITUTE OF TRANSPORT</a></span>
+        </div>
+      </footer>
    </body>
  </html>
  {% endblock content %}

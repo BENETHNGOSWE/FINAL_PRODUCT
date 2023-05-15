@@ -22,15 +22,26 @@ urlpatterns = [
 
     path('addquestionchoice/', views.add_question_choice, name="add_question_choice"),
     path('choice/', views.question_choice_manage, name="question_choice_manage"),
-    path('updatequestionchoice/<str:pk>/', views.update_question_choice, name="update_question_choice"),
+    path('short/',views.question_short_manage, name="question_short_manage"),
     # path('updatemodule/', views.update_module, name="update_module"),
    
+    path('adddept/', views.add_dept, name='add_dept'),
+    path('deptdata/', views.dept_manage, name='dept_manage'),
+    path('updatedept/<str:pk>/', views.update_dept, name="update_dept"),
+    path('deletedept/<str:pk>/', views.delete_dept, name="delete_dept"),
 
-
-
+    # path('questioncount/', views.question_count, name='question_count'),
 
     path('addquestion/', views.add_question, name="add_question"),
+    path('addquestionchoice/', views.add_question_choice, name="add_question_choice"),
+    path('addquestionshort/', views.add_question_short, name="add_question_short"),
+
     path('updatequestion/<str:pk>/', views.update_question, name="update_question"),
+    path('updatequestionshort/<str:pk>/', views.update_question_short, name="update_question_short"),
+    path('updatequestionchoice/<str:pk>/', views.update_question_choice, name="update_question_choice"),
+
+
     path('deletequestion/<str:pk>/', views.delete_question, name="delete_question"),
-    path('data/', views.question_manage, name="question_manage"),
+    path('dataA/', views.question_manage, name="question_manage"),
+    # path('data/', views.question_short_manage, name="question_short_manage"),
 ]

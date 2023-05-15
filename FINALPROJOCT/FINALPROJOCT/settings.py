@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-zzey$!tx3*4bn4eh^+-%zg^)c)$^ddb#47rdyq6#rzo42%8e7_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.4']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -142,8 +142,15 @@ STATICFILES_DIR = {
     os.path.join(BASE_DIR , "public/static")
 }
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'public/static') 
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    '/var/www/static/',
+]
+
 
 
 
@@ -154,3 +161,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATE_INPUT_FORMATS = ["%d.%m.%Y"]
 USE_L10N = False
+
+LOGIN_REDIRECT_URL = '/dashboard/' # URL to redirect to after successful login
+LOGIN_URL = '/login/' # URL to redirect to if user is not logged in
