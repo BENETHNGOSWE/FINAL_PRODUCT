@@ -1,16 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
-from .models import Course, Masomo,QuestionChoice,QuestionShortterm, Department
+from .models import Course, Masomo,QuestionChoice,QuestionShortterm, Department, QuestionLongTerm
 from .forms import  CourseForm, MasomoForm, QuestionChoiceForm, QuestionShorttermForm, QuestionForm, DepartmentForm
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-
+from mtihani.models import Mtihani
 # Create your views here.
 
 @login_required
 def dashboard(request):
     return render(request, 'FYPAPP/dashboard.html')
-    # return render(request,'teacher/teacher_dashboard.html'
+
+   
 
 # def dashboard(request):
 #     return render(request, 'FYPAPP/dashboard.html')
@@ -260,7 +261,7 @@ def display(request):
   
 
 
-
+    
 
 
 

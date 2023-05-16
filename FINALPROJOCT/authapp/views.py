@@ -3,13 +3,26 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-
-
+from FYPAPP.models import QuestionChoice
+from mtihani.models import Mtihani
+from FYPAPP.models import QuestionChoice,QuestionLongTerm,QuestionShortterm,Course
 # Create your views here.
 
 @login_required
 def HomePage(request):
-    return render(request, 'FYPAPP/dashboard.html', {})
+    question_count = QuestionShortterm.objects.count()
+    question_count1 = QuestionChoice.objects.count()
+    question_count2 = QuestionLongTerm.objects.count()
+    course = Course.objects.count()
+    exam = Mtihani.objects.count()
+    context = {
+        'question_count': question_count,
+        'question_count1': question_count1,
+        'question_count2': question_count2,
+        'course': course,
+        'exam': exam,
+    }
+    return render(request, 'FYPAPP/dashboard.html', context)
 
 @login_required
 def Profile(request):
@@ -57,3 +70,14 @@ def logoutuser(request):
 
 # def test(request):
 #     return render(request, 'auth_system/test.html', {})
+
+
+
+def admin_dashboard_view(request):
+    dict={
+    'total_student':QuestionChoice.objects.all().count(),
+    # 'total_teacher':TMODEL.Teacher.objects.all().filter(status=True).count(),
+    # 'total_course':models.Course.objects.all().count(),
+    # 'total_question':models.Question.objects.all().count(),
+    }
+    return render(request,'FYPAPP/dashboard.html',context=dict)

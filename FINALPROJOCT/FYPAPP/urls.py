@@ -44,4 +44,5 @@ urlpatterns = [
     path('deletequestion/<str:pk>/', views.delete_question, name="delete_question"),
     path('dataA/', views.question_manage, name="question_manage"),
     # path('data/', views.question_short_manage, name="question_short_manage"),
+
 ]

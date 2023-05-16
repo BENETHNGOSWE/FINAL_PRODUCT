@@ -302,8 +302,7 @@
       
     </div>
 
-    <div class="nafasi">
-      <h2>{{ num_questions }}</h2>
+    <div class="nafasi"> 
       <div class="maswali">
         <div class="rowcol">
           <div class="quick-header-top">
@@ -314,13 +313,12 @@
               <div class="col">
                 <div class="card">
                   <p class="card-header "><b>TOTAL COURSE</b></p>
-                  <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{ count }}</span></h2>
+                  <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{ question_count }}</span></h2>
                 </div>
                 <div class="space2"></div>
                 <div class="card2">
                   <p class="card-header"><b>TOTAL QUESTIONS</b></p>
-                  <h2>{{ num_questions }}</h2>
-                  {{ num_questions }}
+                  <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{ question_count1 }}</span></h2>
                 </div>
               </div>
             </div>
@@ -329,10 +327,12 @@
               <div class="col">
                 <div class="card3">
                   <p class="card-header"><b>TOTAL COURSE</b></p>
+                  <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{ course }}</span></h2>
                 </div>
                 <div class="space2"></div>
                 <div class="card4">
                   <p class="card-header"><b>TOTAL EXAMS</b></p>
+                  <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{ exam }}</span></h2>
                 </div>
               </div>
            </div>
@@ -363,6 +363,7 @@
           </div>
         </div>
         <!-- DEPT TABLE END HERE -->
+        <h3>total{{ question_count }}</h3>
       </div>
       
 
