@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 questionsection = (
@@ -21,6 +21,7 @@ questionlevel = (
 
 
 class Course(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     courseName = models.CharField(max_length=30)
     courseCode = models.CharField(max_length=30)
 
@@ -39,7 +40,7 @@ class Masomo(models.Model):
 class Topic(models.Model):
     topicNumber = models.IntegerField()
     topicName = models.CharField(max_length=30)
-    module = models.ForeignKey('Masomo', on_delete=models.CASCADE)
+    module = models.ForeignKey(Masomo, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.topicName
 
@@ -57,7 +58,7 @@ class QuestionSection(models.Model):
         return self.questionsection
 
 class Department(models.Model):
-    deptname = models.CharField(max_length=30, null=True, blank=True)
+    deptname = models.CharField(max_length=100, null=True, blank=True)
   
     def __str__(self):
         return self.deptname
@@ -79,33 +80,36 @@ class Category(models.Model):
 #         return self.questionText
 
 class QuestionChoice(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     question = models.TextField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     somo = models.ForeignKey('Masomo', on_delete=models.CASCADE, null=True, blank=True)
     topic = models.ForeignKey('Topic', on_delete=models.CASCADE, null=True, blank=True)
-    option1 = models.TextField(max_length=100)
-    option2 = models.TextField(max_length=100)
-    option3 = models.TextField(max_length=100)
-    option4 = models.TextField(max_length=100)
-    answer = models.TextField(max_length=50)
+    option1 = models.CharField(max_length=100, null=True, blank=True)
+    option2 = models.CharField(max_length=100, null=True, blank=True)
+    option3 = models.CharField(max_length=100, null=True, blank=True)
+    option4 = models.CharField(max_length=100, null=True, blank=True)
+    answer = models.TextField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.question
 
 class QuestionShortterm(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     somo = models.ForeignKey('Masomo', on_delete=models.CASCADE, null=True, blank=True)
     topic = models.ForeignKey('Topic', on_delete=models.CASCADE, null=True, blank=True)
-    question = models.TextField(max_length=100)
-    answer = models.TextField(max_length=100)
+    question = models.TextField(max_length=100, null=True, blank=True)
+    answer = models.TextField(null=True, blank=True)
 
 
 class QuestionLongTerm(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     somo = models.ForeignKey('Masomo', on_delete=models.CASCADE,null=True, blank=True)
     topic = models.ForeignKey('Topic', on_delete=models.CASCADE, null=True, blank=True)
-    question = models.TextField ()
-    answer = models.TextField (max_length=100)
+    question = models.TextField (max_length=100, null=True, blank=True)
+    answer = models.TextField (null=True, blank=True)
 
 
 

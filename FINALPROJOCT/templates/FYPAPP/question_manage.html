@@ -2,7 +2,6 @@
 
 {% block content %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +29,6 @@ body {
 	background: #fff;
 	padding: 20px 25px;
 	border-radius: 3px;
-	min-width: 1000px;
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 .table-title {        
@@ -38,8 +36,6 @@ body {
 	background: #435d7d;
 	color: #fff;
 	padding: 16px 30px;
-	min-width: 100%;
-	margin: -20px -25px 10px;
 	border-radius: 3px 3px 0 0;
 }
 .table-title h2 {
@@ -241,6 +237,80 @@ table.table .avatar {
 .modal form label {
 	font-weight: normal;
 }	
+
+/* Responsive Styles */
+@media (max-width: 767px) {
+	.table-title h2 {
+		font-size: 18px;
+	}
+	table.table thead {
+		display: none;
+	}
+	table.table td, table.table th {
+		display: block;
+	}
+	table.table td {
+		height: 45px;
+		line-height: 45px;
+	}
+	table.table td:before, table.table th:before {
+		content: attr(data-th);
+		font-weight: bold;
+		display: inline-block;
+		width: 120px;
+	}
+	table.table td:last-child {
+		border-bottom: none;
+	}
+	.table-wrapper {
+		margin-bottom: 20px;
+	}
+	.table-responsive .table-wrapper {
+		border: none;
+		box-shadow: none;
+		margin-bottom: 0;
+	}
+	.table-responsive .table-title {
+		padding: 5px 15px;
+	}
+	.table-responsive .table-title h2 {
+		font-size: 14px;
+		margin: 5px 0;
+	}
+	.table-responsive {
+		border: 1px solid #ddd;
+		border-radius: 3px;
+	}
+	.table-responsive .table-striped tbody tr:nth-of-type(odd) {
+		background-color: transparent;
+	}
+	.table-responsive .table-striped tbody tr:nth-of-type(even) {
+		background-color: transparent;
+	}
+	.table-responsive .table-striped tbody td {
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid #ddd;
+	}
+	.table-responsive .table-striped tbody td:before {
+		content: attr(data-th);
+		display: flex;
+		align-items: center;
+		font-weight: normal;
+		width: 120px;
+		margin-right: 10px;
+	}
+	.table-responsive .table-striped tbody td:last-child {
+		border-bottom: none;
+	}
+	.table-responsive .table-striped tbody tr td .btn {
+		font-size: 13px;
+		margin: 2px;
+	}
+	.table-responsive .table-striped thead {
+		display: none;
+	}
+}	
 </style>
 <script>
 $(document).ready(function(){
@@ -275,7 +345,7 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Question</b></h2>
+						<h2>Manage <b>Short Question</b></h2>
 					</div>
 			
 				</div>
@@ -296,36 +366,25 @@ $(document).ready(function(){
                         <!-- <td>{{data.questionType}}</td> -->
                         <!-- <td>{{question.questionType}}</td> -->
                         <td>
-							<div class="container-fluid">
+							<div class="container-fluidss">
 								<div class="row">
 									<div class="col-6">
 										<a href="{% url 'FYPAPP:update_question_short' question.id %}" class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</a>
-
-										<!-- <a href="{% url 'FYPAPP:add_question' %}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
-										<!-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->
 									</div>
-	
-
 									<div class="col-6">
-										<a href="{% url 'FYPAPP:update_question' question.id %}" class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</a>
-
-										<!-- <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
-										<!-- <a href="{% url 'FYPAPP:delete_question' question.id %}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->
+										<a href="{% url 'FYPAPP:delete_question_short' question.id %}" class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</a>
 									</div>
 								</div>
 							</div>
-						</td>
+                        </td>
                     </tr>
                     {% endfor %}
                 
-			</table>
-		
+            </table>
 		</div>
 	</div>        
-</div>
-
+</div>     
 
 </body>
 </html>
-
-{% endblock content%} 
+{% endblock %}

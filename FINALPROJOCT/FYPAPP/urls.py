@@ -19,8 +19,9 @@ urlpatterns = [
     path('addmodule/', views.add_module, name='add_module'),
     path('moduledata/', views.module_manage, name='module_manage'),
     path('updatemodule/<str:pk>/', views.update_module, name="update_module"), 
+    path('deletemodule/<str:pk>/', views.delete_module, name="delete_module"),
 
-    path('addquestionchoice/', views.add_question_choice, name="add_question_choice"),
+    path('long/', views.question_long_manage, name="question_long_manage"),
     path('choice/', views.question_choice_manage, name="question_choice_manage"),
     path('short/',views.question_short_manage, name="question_short_manage"),
     # path('updatemodule/', views.update_module, name="update_module"),
@@ -32,17 +33,18 @@ urlpatterns = [
 
     # path('questioncount/', views.question_count, name='question_count'),
 
-    path('addquestion/', views.add_question, name="add_question"),
+    path('addquestion/', views.add_question_long, name="add_question"),
     path('addquestionchoice/', views.add_question_choice, name="add_question_choice"),
     path('addquestionshort/', views.add_question_short, name="add_question_short"),
 
-    path('updatequestion/<str:pk>/', views.update_question, name="update_question"),
+    path('updatequestion/<str:pk>/', views.update_question_long, name="update_question_long"),
     path('updatequestionshort/<str:pk>/', views.update_question_short, name="update_question_short"),
     path('updatequestionchoice/<str:pk>/', views.update_question_choice, name="update_question_choice"),
 
 
-    path('deletequestion/<str:pk>/', views.delete_question, name="delete_question"),
-    path('dataA/', views.question_manage, name="question_manage"),
-    # path('data/', views.question_short_manage, name="question_short_manage"),
+    path('deletequestion/<str:pk>/', views.delete_question_long, name="delete_question"),
+    path('deleteshort/<str:pk>/', views.delete_question_short, name="delete_question_short"),
+    path('deletechoice/<str:pk>/', views.delete_question_choice, name="delete_question_choice"),
+  
 
 ]

@@ -27,7 +27,7 @@ def total(request):
     print(totalcourse)
     context = {'courses':courses, 'totalcourse':totalcourse}
     return render(request, 'FYPAPP/course_manage.html', context)
-
+#************************COURSE MANAGEMENT*****************************
 def add_course(request):
     if request.method == "POST":
         form = CourseForm(request.POST)
@@ -75,18 +75,21 @@ def add_dept(request):
         form = DepartmentForm()
         return render(request, 'FYPAPP/add_dept.html', {"form":form})    
          
+
+
 def update_dept(request, pk):
-    deptm = DepartmentForm.objects.get(id=pk)
+    deptm = Department.objects.get(id=pk)
     form = DepartmentForm(instance=deptm)
 
     if request.method == "POST":
-        form = CourseForm(request.POST, instance=deptm)
+        form = DepartmentForm(request.POST, instance=deptm)
         if form.is_valid():
             form.save()
             return redirect('/deptdata')
 
     context = {"form":form}
     return render(request, 'FYPAPP/add_dept.html', context)
+
 
 def delete_dept(request, pk):
     dept = Department.objects.get(id=pk)
@@ -95,7 +98,7 @@ def delete_dept(request, pk):
 
 
 # *******************************************************************
-
+#*********************MODULE MANAGEMENT******************************
 def module_manage(request):
     context = {'module_manage': Masomo.objects.all()}
     return render(request, 'FYPAPP/module_manage.html', context)
@@ -127,14 +130,19 @@ def update_module(request, pk):
     context = {"form":form}
     return render(request, 'FYPAPP/add_module.html', context)  
 
+
+def delete_module(request, pk):
+    masomo = Masomo.objects.get(id=pk)
+    masomo.delete()
+    return redirect('/moduledata')
 # ********************************************************************************* 
 
 # ****************************************************************************
 
 
-def question_manage(request):
-    context = {'question_manage': QuestionChoice.objects.all()}
-    return render(request, "FYPAPP/question_manage.html", context)
+def question_long_manage(request):
+    context = {'question_long': QuestionLongTerm.objects.all()}
+    return render(request, "FYPAPP/question_long_manage.html", context)
 
 def question_choice_manage(request):
     context = {'question_choice': QuestionChoice.objects.all()}
@@ -145,52 +153,56 @@ def question_short_manage(request):
     return render(request, "FYPAPP/question_manage.html", context)
 
 # ***************************ADD QUESTIONS HAPA ***************************************
-def add_question(request):
+
+@login_required
+def add_question_long(request):
     if request.method == "POST":
         form = QuestionForm(request.POST)
         if form.is_valid():
-            form.save()
-            
-        return redirect('/data')  
-
+            question = form.save(commit=False)
+            question.user = request.user  # Associate the question with the logged-in user
+            question.save()
+            return redirect('/long')  
     else:
-            form = QuestionForm()
-            return render(request, "FYPAPP/add_question.html", {"form":form})         
+        form = QuestionForm()
+    return render(request, "FYPAPP/add_question.html", {"form": form})
 
+@login_required
 def add_question_choice(request):
     if request.method == "POST":
         form = QuestionChoiceForm(request.POST)
         if form.is_valid():
-            form.save()
-        return redirect('/choice')
+            question_choice = form.save(commit=False)
+            question_choice.user = request.user  # Associate the question choice with the logged-in user
+            question_choice.save()
+            return redirect('/choice')
     else:
         form = QuestionChoiceForm()
-        return render(request, "FYPAPP/add_question_choice.html", {'form':form})    
-        
-         
+    return render(request, "FYPAPP/add_question_choice.html", {'form': form})    
 
+@login_required
 def add_question_short(request):
     if request.method == "POST":
-        form= QuestionShorttermForm(request.POST)
+        form = QuestionShorttermForm(request.POST)
         if form.is_valid():
-            form.save()
-
-        return redirect('/data')
-
+            question_shortterm = form.save(commit=False)
+            question_shortterm.user = request.user  # Associate the short-term question with the logged-in user
+            question_shortterm.save()
+            return redirect('/short')
     else:
         form = QuestionShorttermForm()
-        return render(request, "FYPAPP/add_question.html", {"form":form})        
+    return render(request, "FYPAPP/add_question.html", {"form": form})       
 # *****************************UPDATE QUESTION******************************************************************
 
-def update_question(request, pk):
-    question = Question.objects.get(id=pk)
+def update_question_long(request, pk):
+    question = QuestionLongTerm.objects.get(id=pk)
     form = QuestionForm(instance=question)
 
     if request.method == "POST":
         form = QuestionForm(request.POST, instance=question)
         if form.is_valid():
             form.save()
-            return redirect("/data")
+            return redirect("/long")
 
     context = {"form": form }
     return render(request, 'FYPAPP/add_question.html', context)
@@ -223,21 +235,27 @@ def update_question_choice(request, pk):
 
 
 #***************************************************************** 
+# ********************DELETE QUESTION*****************************
         
-def delete_question(request, pk):
-    question = Question.objects.get(id=pk)
-    if request.method == "POST":
-        question.delete()
-    return redirect("/data")
+def delete_question_long(request, pk):
+   long = QuestionLongTerm.objects.get(id=pk)
+   long.delete()
+   return redirect('/long')
 
 
-    context = {"question":question}
-    return render(request, 'FYPAPP/question_manage.html', context)
+def delete_question_short(request, pk):
+    short = QuestionShortterm.objects.get(id=pk)
+    short.delete()
+    return redirect('/short')
+
+
+def delete_question_choice(request, pk):
+    choice = QuestionChoice.objects.get(id=pk)
+    choice.delete()
+    return redirect('/choice')
 #   ****************************************************************
 
 
-
-      
 
 
 

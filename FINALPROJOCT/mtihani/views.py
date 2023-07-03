@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Exam, Mtihani
-from .forms import ExamForm,MtihaniForm
+from .models import Exam, Mtihani, MtihaniTaarifa
+from .forms import ExamForm,MtihaniForm, MtihaniTaarifaForm
 from FYPAPP.models import QuestionChoice, QuestionShortterm, QuestionLongTerm, Course
 from FYPAPP.forms import QuestionChoiceForm
 from django.db import connection
@@ -14,40 +14,140 @@ from xhtml2pdf import pisa
 from django.views.generic import ListView
 from django.template.loader import render_to_string
 from weasyprint import HTML
+from django.contrib.auth.decorators import login_required
+
 
 
 def exam_manage(request):
-    context = {'exam_manage': Mtihani.objects.all()}
-    # context2 = {'question_choice': QuestionChoice.objects.all()}
+    context = {'exam_manage': MtihaniTaarifa.objects.all()}
     return render(request, "mtihani/exam_manage.html", context)
 
 
-
+@login_required
 def add_exam(request):
     if request.method == "POST":
-        form = MtihaniForm(request.POST)
+        form = MtihaniTaarifaForm(request.POST)
         if form.is_valid():
-            form.save()
+            exam = form.save(commit=False)
+            exam.user = request.user
+            exam.save()
         return redirect('/exam')  
     else:
-            form = MtihaniForm()
-            return render(request, "mtihani/add_exam.html", {"form":form})   
+        form = MtihaniTaarifaForm()
+        return render(request, "mtihani/add_exam.html", {"form":form})   
 
       
 
 
+                 
+ 
 def update_exam(request, pk):
-    mtihani = Mtihani.objects.get(id=pk)
-    form = MtihaniForm(instance=mtihani)
+    mtihani=MtihaniTaarifa.objects.get(id=pk)
+    form = MtihaniTaarifaForm(instance=mtihani)
 
     if request.method == "POST":
-        form = MtihaniForm(request.POST, instance=mtihani)  
+        form = MtihaniTaarifaForm(request.POST, instance=mtihani)
         if form.is_valid():
-            form.save()  
-            return redirect('/exam')  
+            form.save()
+            return redirect('/exam')
+        
+    context = {'form':form}
+    return render(request, 'mtihani/add_exam.html', context)
 
-    context = {"form":form}
-    return render(request, 'mtihani/add_exam.html', context)                  
+
+def delete_exam(request, pk):
+    mth = MtihaniTaarifa.objects.get(id=pk)
+    mth.delete()
+    return redirect('/exam')
+
+
+
+class select_questions(View):
+    def get(self, request, *args, **kwargs):
+        form = MtihaniForm()
+        return render(request, 'mtihani/generate_exam.html', {'form':form})
+    
+    def post(self, request, *args, **kwargs):
+        form = MtihaniForm(request.POST)
+        if form.is_valid():
+            course = form.cleaned_data['course']
+            semeter = form.cleaned_data['semeter']
+            module = form.cleaned_data['module']
+            modulecode = form.cleaned_data['modulecode']
+            exam_name = form.cleaned_data['exam_name']
+            deptname = form.cleaned_data['deptname']
+            examtime = form.cleaned_data['examtime']
+            examdate = form.cleaned_data['examdate']
+            examinationDescription = form.cleaned_data['examinationDescription']
+            examinationDescription2 = form.cleaned_data['examinationDescription2']
+            examinationDescription3 = form.cleaned_data['examinationDescription3']
+            num_questions = form.cleaned_data['num_questions']
+            num_shortquestions = form.cleaned_data['num_shortquestions']
+            num_longquestions = form.cleaned_data['num_longquestions']
+
+           
+        # kuchagua maswali kwa algorthm........................
+            questions = list(QuestionChoice.objects.all())
+            random.shuffle(questions)
+
+            questionshort = list(QuestionShortterm.objects.all())
+            random.shuffle(questionshort)
+
+            questionlong = list(QuestionLongTerm.objects.all())
+            random.shuffle(questionlong)
+
+            # Save only the required number of questions
+            questions = questions[:num_questions]
+            for question in questions:
+                question.save()
+
+            questionshort = questionshort[:num_shortquestions]
+            for question in questionshort:
+                question.save()
+
+            questionlong = questionlong[:num_longquestions]
+            for question in questionlong:
+                question.save()
+
+            # Create a context containing the questions, semester, and exam_name
+            context = {
+                'course': course,
+                'semeter': semeter,
+                'module': module,
+                'modulecode' : modulecode,
+                'exam_name': exam_name,
+                'examdate': examdate,
+                'examtime': examtime,
+                'deptname':deptname,
+                'examinationDescription':examinationDescription,
+                'examinationDescription2':examinationDescription2,
+                'examinationDescription3':examinationDescription3,
+                'num_questions': num_questions,
+                'num_shortquestions': num_shortquestions,
+                'num_longquestions': num_longquestions,
+                'questions': questions,
+                'questionshort': questionshort,
+                'questionlong': questionlong,
+            }
+
+            # Render the HTML template with the context
+            html = render_to_string('pdf2.html', context)
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'filename="questions.pdf"'
+            buffer = BytesIO()
+            HTML(string=html).write_pdf(buffer)
+            response.write(buffer.getvalue())
+
+            # Return the PDF as an HTTP response
+            return response
+        
+        return render(request, 'mtihani/generate_exam.html', {'form': form})
+   
+
+
+
+
+
 
 # class select_questions(View):
 #     def get(self, request, *args, **kwargs):
@@ -107,86 +207,85 @@ def update_exam(request, pk):
 
 
 
-class select_questions(View):
-    def get(self, request, *args, **kwargs):
-        form = MtihaniForm()
-        return render(request, 'mtihani/generate_exam.html', {'form':form})
+# class select_questions(View):
+#     def get(self, request, *args, **kwargs):
+#         form = MtihaniForm()
+#         return render(request, 'mtihani/generate_exam.html', {'form':form})
     
-    def post(self, request, *args, **kwargs):
-        form = MtihaniForm(request.POST)
-        if form.is_valid():
-            course = form.cleaned_data['course']
-            semeter = form.cleaned_data['semeter']
-            module = form.cleaned_data['module']
-            modulecode = form.cleaned_data['modulecode']
-            exam_name = form.cleaned_data['exam_name']
-            examtime = form.cleaned_data['examtime']
-            examdate = form.cleaned_data['examdate']
-            examinationDescription = form.cleaned_data['examinationDescription']
-            examinationDescription2 = form.cleaned_data['examinationDescription2']
-            examinationDescription3 = form.cleaned_data['examinationDescription3']
-            num_questions = form.cleaned_data['num_questions']
-            num_shortquestions = form.cleaned_data['num_shortquestions']
-            num_longquestions = form.cleaned_data['num_longquestions']
+#     def post(self, request, *args, **kwargs):
+#         form = MtihaniForm(request.POST)
+#         if form.is_valid():
+#             course = form.cleaned_data['course']
+#             semeter = form.cleaned_data['semeter']
+#             module = form.cleaned_data['module']
+#             modulecode = form.cleaned_data['modulecode']
+#             exam_name = form.cleaned_data['exam_name']
+#             deptname = form.cleaned_data['deptname']
+#             examtime = form.cleaned_data['examtime']
+#             examdate = form.cleaned_data['examdate']
+#             examinationDescription = form.cleaned_data['examinationDescription']
+#             examinationDescription2 = form.cleaned_data['examinationDescription2']
+#             examinationDescription3 = form.cleaned_data['examinationDescription3']
+#             num_questions = form.cleaned_data['num_questions']
+#             num_shortquestions = form.cleaned_data['num_shortquestions']
+#             num_longquestions = form.cleaned_data['num_longquestions']
 
-            # num_questions = QuestionChoice.objects.all().count()
-            # num_shortquestions = QuestionShortterm.objects.all().count()
-            # num_longquestions = QuestionLongTerm.objects.all().count()
            
-        # Retrieve questions from database and shuffle them
-            questions = list(QuestionChoice.objects.all())
-            random.shuffle(questions)
+#         # kuchagua maswali kwa algorthm........................
+#             questions = list(QuestionChoice.objects.all())
+#             random.shuffle(questions)
 
-            questionshort = list(QuestionShortterm.objects.all())
-            random.shuffle(questionshort)
+#             questionshort = list(QuestionShortterm.objects.all())
+#             random.shuffle(questionshort)
 
-            questionlong = list(QuestionLongTerm.objects.all())
-            random.shuffle(questionlong)
+#             questionlong = list(QuestionLongTerm.objects.all())
+#             random.shuffle(questionlong)
 
-            # Save only the required number of questions
-            questions = questions[:num_questions]
-            for question in questions:
-                question.save()
+#             # Save only the required number of questions
+#             questions = questions[:num_questions]
+#             for question in questions:
+#                 question.save()
 
-            questionshort = questionshort[:num_shortquestions]
-            for question in questionshort:
-                question.save()
+#             questionshort = questionshort[:num_shortquestions]
+#             for question in questionshort:
+#                 question.save()
 
-            questionlong = questionlong[:num_longquestions]
-            for question in questionlong:
-                question.save()
+#             questionlong = questionlong[:num_longquestions]
+#             for question in questionlong:
+#                 question.save()
 
-            # Create a context containing the questions, semester, and exam_name
-            context = {
-                'course': course,
-                'semeter': semeter,
-                'module': module,
-                'modulecode' : modulecode,
-                'exam_name': exam_name,
-                'examdate': examdate,
-                'examtime': examtime,
-                'examinationDescription':examinationDescription,
-                'examinationDescription2':examinationDescription2,
-                'examinationDescription3':examinationDescription3,
-                'num_questions': num_questions,
-                'num_shortquestions': num_shortquestions,
-                'num_longquestions': num_longquestions,
-                'questions': questions,
-                'questionshort': questionshort,
-                'questionlong': questionlong,
-            }
+#             # Create a context containing the questions, semester, and exam_name
+#             context = {
+#                 'course': course,
+#                 'semeter': semeter,
+#                 'module': module,
+#                 'modulecode' : modulecode,
+#                 'exam_name': exam_name,
+#                 'examdate': examdate,
+#                 'examtime': examtime,
+#                 'deptname':deptname,
+#                 'examinationDescription':examinationDescription,
+#                 'examinationDescription2':examinationDescription2,
+#                 'examinationDescription3':examinationDescription3,
+#                 'num_questions': num_questions,
+#                 'num_shortquestions': num_shortquestions,
+#                 'num_longquestions': num_longquestions,
+#                 'questions': questions,
+#                 'questionshort': questionshort,
+#                 'questionlong': questionlong,
+#             }
 
-            # Render the HTML template with the context
-            html = render_to_string('pdf2.html', context)
-            response = HttpResponse(content_type='application/pdf')
-            response['Content-Disposition'] = 'filename="questions.pdf"'
-            buffer = BytesIO()
-            HTML(string=html).write_pdf(buffer)
-            response.write(buffer.getvalue())
+#             # Render the HTML template with the context
+#             html = render_to_string('pdf2.html', context)
+#             response = HttpResponse(content_type='application/pdf')
+#             response['Content-Disposition'] = 'filename="questions.pdf"'
+#             buffer = BytesIO()
+#             HTML(string=html).write_pdf(buffer)
+#             response.write(buffer.getvalue())
 
-            # Return the PDF as an HTTP response
-            return response
+#             # Return the PDF as an HTTP response
+#             return response
         
-        return render(request, 'mtihani/generate_exam.html', {'form': form})
+#         return render(request, 'mtihani/generate_exam.html', {'form': form})
    
-    
+ 

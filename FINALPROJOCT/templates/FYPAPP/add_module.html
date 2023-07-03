@@ -1,7 +1,6 @@
-{% extends 'mtihani/home.html' %}
+{% extends 'FYPAPP/dashboard.html' %}
 
 {% block content %}
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +32,7 @@ body {
 	min-width: 1000px;
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
 	margin-top: 2em;
+	/* table position created here */
 }
 .table-title {        
 	padding-bottom: 15px;
@@ -47,6 +47,39 @@ body {
 	margin: 5px 0 0;
 	font-size: 24px;
 }
+.course{
+	margin-top: 2em;
+}
+
+/* Added responsive CSS */
+@media (max-width: 576px) {
+	.table-wrapper {
+		padding: 10px 15px;
+	}
+
+	.table-title {
+		padding: 10px 15px;
+	}
+
+	.container-xl {
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	.form-outline {
+		margin-bottom: 10px;
+	}
+
+	.form-outline label {
+		display: block;
+	}
+
+	.form-outline input {
+		width: 100%;
+	}
+}
 
 </style>
 
@@ -60,50 +93,33 @@ body {
 					<div class="col-sm-6">
 						<h2>Add <b>Module</b></h2>
 					</div>
-			    </div>
+				</div>
 			</div>
 			<form method="POST" action="#">
-        {% csrf_token %}
-        <!-- {{ form }} -->
-                <!-- Gutter g-1 -->
-<div class="row g-1">
-    <div class="col">
-      <!-- Name input -->
-      <div class="form-outline">
-        <!-- <input type="text" id="form9Example1" name="somo" class="form-control" /> -->
-        <label class="form-label" for="form9Example1">Course</label>
-        {{ form.course }}
-      </div>
-    </div>
-    <div class="col">
-    
-      <div class="form-outline">
-        <!-- <input type="text" id="form9Example3" name="topic" class="form-control" /> -->
-        <label class="form-label" for="form9Example3">ModuleName</label>
-        {{ form.moduleName }}
-      </div>
-    </div>
-	<div class="col">
-		<div class="form-outline">
-			<label class="form-label" for="form9Example4">ModuleCode</label>
-			{{ form.moduleCode}}
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="course">Course</label>
+					{{ form.course }}
+				</div><hr>
+				<div class="form-group">
+					<label for="moduleName">ModuleName</label>
+					{{ form.moduleName }}
+				</div><hr>
+				<div class="form-group">
+					<label for="moduleCode">ModuleCode</label>
+					{{ form.moduleCode}}
+				</div><hr>
+
+				<div class="mt-5">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="reset" class="btn btn-secondary ms-2">Reset</button>
+					<a href="{% url 'FYPAPP:module_manage' %}" class="btn btn-outline-dark ms-2">List All</a>
+				</div>
+			</form>
 		</div>
 	</div>
-  </div>
-        
-        <div class="mt-5">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="reset" class="btn btn-secondary ms-2">Reset</button>
-            <a href="{% url 'FYPAPP:module_manage' %}" class="btn btn-outline-dark ms-2">List All</a>
-        </div>
-    </form>
-		
-		</div>
-	</div>        
 </div>
-
-
 </body>
 </html>
 
-{% endblock content%} 
+{% endblock content %}

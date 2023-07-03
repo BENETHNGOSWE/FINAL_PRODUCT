@@ -1,6 +1,8 @@
 from django.db import models
-from FYPAPP.models import Masomo, Course, QuestionSection,  QuestionChoice, QuestionShortterm,QuestionLongTerm
+from FYPAPP.models import Masomo, Course, QuestionSection,  QuestionChoice, QuestionShortterm,QuestionLongTerm, Department
 import datetime
+from django.contrib.auth.models import User
+
 # Create your models here.
 class Exam(models.Model):
     examinationType = models.CharField(max_length=30,  null=True, blank=True)
@@ -25,6 +27,7 @@ class SavedExam(models.Model):
 
 
 class MtihaniTaarifa(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True)
     deptname = models.CharField(max_length=100, null=True, blank=True)
     semeter = models.CharField(max_length=20)
 
@@ -32,6 +35,7 @@ class MtihaniTaarifa(models.Model):
 class Mtihani(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE,  null=True, blank=True)
     module = models.ForeignKey(Masomo, on_delete=models.CASCADE,  null=True, blank=True)
+    deptname = models.ForeignKey(Department, on_delete=models.CASCADE,  null=True, blank=True)
     modulecode = models.CharField(max_length=50, null=True, blank=True)
     semeter = models.CharField(max_length=50, null=True, blank=True)
     exam_name = models.CharField(max_length=50)

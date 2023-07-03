@@ -1,7 +1,7 @@
-
+{% extends 'FYPAPP/home.html' %}
 
 {% block content %}
-<h2 class="center">zxxxxxxxxxxxxx</h2>
+<h2 class="center">MY PROFILE</h2>
     <div class="content-section">
       <div class="media">
         <!-- <img class="rounded-circle account-img" src="{{ user.profile.image.url }}"  width="150" height="150">
@@ -9,7 +9,7 @@
          <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" style="width: 60px; height: 60px; border-radius: 50%;" />
 
         <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
+          <h2 class="account-heading">My name is {{ user.username }}</h2>
           <p class="text-secondary">{{ user.email }}</p>
         </div>
       </div>

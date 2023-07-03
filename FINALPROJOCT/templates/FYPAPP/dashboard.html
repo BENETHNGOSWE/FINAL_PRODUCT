@@ -18,22 +18,42 @@
       rel="stylesheet"
     />
     <style>
-      .dashboard-header{
-      background-color:  rgba(213,222,225,28%);
-      /* border-radius: 5px; */
-      /* background-color: rgba(113, 185, 202, 255); */
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .sidebar {
+  background-color: rgba(25, 107, 140, 255);
+  height: 100vh;
+  position: auto; /* Add this line */
+  top: 0; /* Add this line */
+  bottom: 0; /* Add this line */
+}
+
+.boxkushoto .sidebar {
+  /* Remove position, width, and height properties */
+  width: 240px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.3s ease;
+}
+  .dashboard-header {
+      background-color:  rgba(213, 222, 225, 28%);
       color: white;
       width: 82.8em;
       height: 3em;
+      margin-bottom: 1em; /* Added margin-bottom */
 
       }
       .containerkuu{
       /* background-color: #F56565; */
       position: relative;
-      margin-left: 16em;
-      /* margin-top: 1em;/ */
-      width: 83em;
-      height: 29em;
+      margin-left: -2.7em;
+      /* margin-top: -7em; */
+      width: 100%
+      /* height: 17em; */
+      
     }
     .card{
       /* display: inline-flex; */
@@ -143,24 +163,19 @@
       margin-left: 14px;
     }
     .quick-links-btn-header{
-      /* margin-top: -0.7em; */
       margin-left: 0.9em;
       margin-bottom: -0.3em;
     }
     .quick-header{
-      /* margin-top: 2em; */
       margin-left: 0.6em;
       color: black;
-      /* background-color: rgba(213,222,225,28%); */
     }
     .quick-header-top{
       background-color:  rgba(213,222,225,28%);
-      /* width: 20em; */
       height: 3.7em;
     }
     .quick-links-btn-mini{
       background-color:  rgba(213,222,225,28%);
-      /* width: 20em; */
       height: 2em;
     }
     .notification{
@@ -181,10 +196,6 @@
       margin-left: 0.2em;
       margin-right: 2em;
     }
-    /* .btn{
-      margin-top: 2em;
-      white-space: 2em;
-    } */
     .space {
       width: 1px;
       height: auto;
@@ -224,7 +235,7 @@
       border-radius: 5px;
       height: 25em;
       /* width: 23em; */
-
+      
     }
     .dept{
       background-color: white;
@@ -233,12 +244,10 @@
       border-radius: 5px;
       height: 12em;
     }
-    .row{
-      margin-top: 5.5em;
-    }
+    
     .col{
       display: inline-flex;
-      margin-top: -4em;
+      /* margin-top: -4em; */
     }
     .masomoyangu{
       /* background-color: #4C51BF; */
@@ -265,9 +274,15 @@
     .nav-item{
       margin-left: 1em;
     }
-    /* .btn{
+    .total_course{
+      margin-left: 8em;
       color: white;
-    } */
+      margin-top: -1.4em;
+    }
+    .total_icon{
+      margin-top: 0.6em;
+      margin-left: 0.3em;
+    }
     </style>
  
 </head>
@@ -279,7 +294,9 @@
       <!-- <h2 style="color:black;">DASHBOARD</h2>
       <h2 style="color:black;">DASHBOARD</h2> -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">DASHBOARD</a>
+        <a href="{% url 'FYPAPP:dashboard' %}">
+          <button type="button" class="btn btn-white">DASHBOARD</button>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -312,13 +329,19 @@
             <div class="row">
               <div class="col">
                 <div class="card">
-                  <p class="card-header "><b>TOTAL COURSE</b></p>
-                  <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{ question_count }}</span></h2>
+                  <p class="card-header "><b>TOTAL SHORT QUESTIONS</b></p>
+                  <h2 class="total_icon"><i class="fas fa-user-graduate f-left"></i></h2>
+                  <div>
+                    <h2 class="total_course"><span>{{ question_count }}</span></h2>
+                  </div>
                 </div>
                 <div class="space2"></div>
                 <div class="card2">
-                  <p class="card-header"><b>TOTAL QUESTIONS</b></p>
-                  <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{ question_count1 }}</span></h2>
+                  <p class="card-header"><b>TOTAL CHOICE QUESTIONS</b></p>
+                  <h2 class="total_icon"><i class="fas fa-question-circle f-left"></i></h2>
+                  <div>
+                    <h2 class="total_course"><span>{{ question_count1 }}</span></h2>
+                  </div>
                 </div>
               </div>
             </div>
@@ -326,13 +349,19 @@
             <div class="row">
               <div class="col">
                 <div class="card3">
-                  <p class="card-header"><b>TOTAL COURSE</b></p>
-                  <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{ course }}</span></h2>
+                  <p class="card-header"><b>TOTAL LONG QUESTIONS</b></p>
+                  <h2 class="total_icon"><i class="fas fa-user-graduate f-left"></i></h2>
+                  <div>
+                    <h2 class="total_course"><span>{{ question_count2 }}</span></h2>
+                  </div>
                 </div>
                 <div class="space2"></div>
                 <div class="card4">
                   <p class="card-header"><b>TOTAL EXAMS</b></p>
-                  <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{ exam }}</span></h2>
+                  <h2 class="total_icon"><i class="fas fa-book f-left"></i></h2>
+                  <div>
+                    <h2 class="total_course"><span>{{ exam }}</span></h2>
+                  </div>
                 </div>
               </div>
            </div>
@@ -363,7 +392,6 @@
           </div>
         </div>
         <!-- DEPT TABLE END HERE -->
-        <h3>total{{ question_count }}</h3>
       </div>
       
 
@@ -389,10 +417,10 @@
           <a href="{% url 'FYPAPP:add_question_short' %}">
             <button class="btn" style="background: rgba(25,107,140,255); color: white;">SHORT TERMS</button>
           </a>
-          <a href="{% url 'FYPAPP:add_question_choice' %}">
+          <a href="{% url 'FYPAPP:add_question' %}">
             <button class="btn" style="background: rgba(25,107,140,255); color: white;">LONG TERMS</button>
           </a>
-          <a href="{% url 'FYPAPP:add_question_choice' %}">
+          <a href="{% url 'FYPAPP:question_choice_manage' %}">
             <button class="btn " style="background: rgba(25,107,140,255); color: white;">MANAGE QNS</button>
           </a>
       </div>

@@ -14,7 +14,7 @@ class MtihaniForm(forms.ModelForm):
         model = Mtihani
         fields = '__all__'        
 
-class MtihaniTaarifa(forms.ModelForm):
+class MtihaniTaarifaForm(forms.ModelForm):
     class Meta:
         model = MtihaniTaarifa
         fields = '__all__'        
